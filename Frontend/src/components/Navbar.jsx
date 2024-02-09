@@ -6,7 +6,7 @@ const Navbar = () => {
   const {pathname} = location;
  
   let showLogout = false;
-  if (pathname.startsWith("/subjects/") ||pathname.startsWith("/std_sub/")||pathname.startsWith("/questions/")||pathname.startsWith("/getMarks/"))  {
+  if (pathname.startsWith("/subjects/") ||pathname.startsWith("/std_sub/")||pathname.startsWith("/getMarks/"))  {
     showLogout = true;
   }
   const handleLogout = () => {
