@@ -13,6 +13,18 @@ exports.get_all_sub = (async (req, res) => {
     } 
 })
 
+
+exports.get_sub = (async (req, res) => {
+    try {
+        const sub = await sub_db.findById(req.params.id);
+        res.json(sub);       
+    } catch (error) {
+        res.status(500).send({
+            message: err.message || "Internal Server Error"
+        })
+    } 
+})
+
 //------------------------------------------------------------------
 exports.create_sub = ([
     body('code', 'Enter a valid code').isLength({ min: 2 }),
@@ -25,9 +37,9 @@ exports.create_sub = ([
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { code,name} = req.body;
+    const { code,name,duration} = req.body;
     const sub = await new sub_db({
-        code , name
+        code , name,duration
     })
     sub
         .save(sub)

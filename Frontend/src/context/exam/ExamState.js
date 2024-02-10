@@ -281,8 +281,22 @@ const ExamState = (props) => {
             console.error('Error fetching subjects:', error);
         }
     }
+    const get_subject = async (id) => {
+        try {
+            const response = await fetch(`${host}/api/subjects/get_sub/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            const json = await response.json();
+            setSub(json);
+        } catch (error) {
+            console.error('Error fetching subjects:', error);
+        }
+    }
 
-    const createSubject = async (code, name) => {
+    const createSubject = async (code, name,duration) => {
         try {
             const response = await fetch(`${host}/api/subjects/create_sub`, {
                 method: 'POST',
@@ -290,7 +304,7 @@ const ExamState = (props) => {
                     'Content-Type': 'application/json',
                     'auth_token': localStorage.getItem('token')
                 },
-                body: JSON.stringify({ code, name })
+                body: JSON.stringify({ code, name ,duration})
             });
             const json = await response.json();
             if(json.success ==true){
@@ -299,6 +313,7 @@ const ExamState = (props) => {
                         "_id": json.sub._id,
                         "code": json.sub.code,
                         "name": json.sub.name,
+                        "duration":json.sub.duration,
                         "__v": 0
                     };
                     return [sub, ...prevState];
@@ -538,7 +553,7 @@ const ExamState = (props) => {
             admin, getallAdmin, Qns, getQns_perSub, createQn_perSub, deleteQn_perSub, updateQn_perSub,
             isAttempt, isAttempts, getallAttempts, getAttempt, createAttempt, changeAttempt,
             Stds, get_onestd, getStudent, getallStudents,
-            Sub, getallSubjects, createSubject, deleteSubject, marks, getmarksPerSub, update_marks, get_marks, set_marks, Qnmarks,
+            Sub, getallSubjects,get_subject, createSubject, deleteSubject, marks, getmarksPerSub, update_marks, get_marks, set_marks, Qnmarks,
             sub_marks, set_marksPerQn, get_marksPerQn, update_marksPerQn
         }}>
             {props.children}

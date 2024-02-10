@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ExamContext from '../context/exam/examContext';
 const Counter = (props) => {
+  const context = useContext(ExamContext);
+  const {get_subject,Sub} = context;
   const {subId} = props;
   const navigate = useNavigate();
- 
-  const [time, setTime] = useState({ hours: '00',minutes: '00', seconds: '30' });
+  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -13,6 +15,14 @@ const Counter = (props) => {
 
     return () => clearInterval(interval);
   }, []);
+  useEffect(()=>{
+    const fetchdata = async()=>{
+      await get_subject(subId);
+    }
+    fetchdata();
+  },[])
+  // const [time, setTime] = useState({ hours:Sub.duration.hours ,minutes:Sub.duration.minutes, seconds:Sub.duration.seconds });
+  const [time, setTime] = useState({ hours:'00' ,minutes:'02', seconds:'00' });
 
   const countdown = () => {
     setTime(prevTime => {
@@ -46,8 +56,7 @@ const Counter = (props) => {
 
   const handleTimerEnd = () => {
     console.log('Timer ended!');
-    // navigate(`/getMarks/${subId}`);
-    // Call any function you want to execute when the timer ends
+    navigate(`/getMarks/${subId}`);
   };
 
   return (

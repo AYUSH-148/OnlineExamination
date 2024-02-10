@@ -1,13 +1,11 @@
 import React, { useContext } from 'react';
 import examContext from '../context/exam/examContext'
 import { useNavigate } from 'react-router';
-import { useDispatch } from "react-redux";
 export default function SubjectItem(props) {
     const context = useContext(examContext);
     const navigate = useNavigate();
     const { deleteSubject } = context;
     const { sub } = props;
-
     const handleDelete = async(sub) => {
         console.log("Deleting...")
         await deleteSubject(sub._id);
@@ -21,6 +19,7 @@ export default function SubjectItem(props) {
                 <button className='sub_btn'  onClick={() => handleQns(sub)}  >
                     <h4>{sub.name}</h4>
                     <div>code: {sub.code}</div>
+                    <div>{sub.duration.hours}:{sub.duration.minutes}:{sub.duration.seconds}</div>
                 </button>
                
                 <button onClick={() => handleDelete(sub)}>Del</button>

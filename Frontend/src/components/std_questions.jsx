@@ -20,6 +20,7 @@ export default function Std_questions() {
     };
     fetchData();
   }, []);
+  // console.log(Qns);
   const handleClick = async () => {
     alert.info('Your response is recorded!', {
       timeout: 5000, // custom timeout just for this one alert

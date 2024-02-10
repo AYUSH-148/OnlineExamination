@@ -8,7 +8,6 @@ export default function Sub_students() {
     const context = useContext(ExamContext)
     const { Sub, getallSubjects } = context;
     const navigate = useNavigate();
-
     useEffect(() => {
         const fetchData = async () => {
             if (localStorage.getItem('token')) {
@@ -20,6 +19,8 @@ export default function Sub_students() {
        
         fetchData();
     }, []);
+    // console.log(Sub);
+
     return (
         <div>
             <h3>Subjects</h3>
