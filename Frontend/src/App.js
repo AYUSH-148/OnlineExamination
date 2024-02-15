@@ -1,6 +1,7 @@
 import './css/Home.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
+import  Toaster  from "../src/components/ui/toaster"
 
 import ExamState from './context/exam/ExamState';
 
@@ -37,6 +38,7 @@ function App() {
                       <Route exact path='/getMarks/:subId' element={<GetMarks/>} />
                       
                     </Routes>
+                    <Toaster />
                   </div> 
                 </Router>
       </ExamState>

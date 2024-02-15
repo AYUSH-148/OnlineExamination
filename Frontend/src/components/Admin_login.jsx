@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Terminal, AlertCircle } from "lucide-react"
-import { Alert, AlertDescription, AlertTitle } from "./ui/alert"
+import { useToast } from "../../src/components/ui/use-toast"
+import { ToastAction } from "../../src/components/ui/toast"
+
 
 // import { useAlert } from 'react-alert'
 
 export default function Admin_login() {
-  let showGAlert = false;
-  let showBAlert = false;
+  const { toast } = useToast()
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -24,15 +25,19 @@ export default function Admin_login() {
     const json = await response.json();
 
     if (json.success) {
-      showGAlert = true;
+      toast({
+        title: "Logged in successfully!",
+        description: "...loading",
+      })
       localStorage.setItem('token', json.auth_token);
       navigate(`/subjects/${json.admin._id}`);
     }
     else {
-      showBAlert = true;
-      alert.error('Invalid Login details', {
-        timeout: 5000, // custom timeout just for this one alert
-        type: 'error',
+      toast({
+        variant: "destructive",
+        title: "Invalid credentials!",
+        description: "There was a problem with your request.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
       })
     }
   };
@@ -61,21 +66,7 @@ export default function Admin_login() {
           <button type="submit">Submit</button>
         </form>
       </div>
-      {showGAlert && <Alert>
-        <Terminal className="h-4 w-4" />
-        <AlertTitle>Success</AlertTitle>
-        <AlertDescription>
-          Going Forward!
-        </AlertDescription>
-      </Alert>}
-
-      {showBAlert && <Alert variant="destructive">
-        <AlertCircle className="h-4 w-4" />
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>
-          Invalid credentials.
-        </AlertDescription>
-      </Alert>}
+     
 
     </>
   );
