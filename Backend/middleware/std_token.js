@@ -1,8 +1,8 @@
 var jwt = require('jsonwebtoken');
 
-const dotenv = require('dotenv');
-dotenv.config({path:'config.env'});
-
+// const dotenv = require('dotenv');
+// dotenv.config({path:'config.env'});
+const JWT_SECRET = "GandMara";
 
 const fetchstd=  (req,res,next)=>{
     //Get the user from the jwt token and add id to req object
@@ -11,7 +11,7 @@ const fetchstd=  (req,res,next)=>{
         res.status(401).send({error:"Please authencticate using a valid token"})
     }
     try {
-        const data= jwt.verify(token,process.env.JWT_SECRET);
+        const data= jwt.verify(token,JWT_SECRET);
         req.std = data.std;
         next()
     } catch (error) {

@@ -11,12 +11,13 @@ export default function Std_questions() {
   const alert = useAlert();
   const navigate = useNavigate();
   const { subId } = useParams();
-  const { Qns, getQns_perSub, set_marks } = useContext(ExamContext);
+  const { Qns, getQns_perSub, set_marks,get_subject,Sub } = useContext(ExamContext);
 
   useEffect(() => {
     const fetchData = async () => {
       await getQns_perSub(subId);
       await set_marks(subId, 0);
+      await get_subject(subId);
     };
     fetchData();
   }, []);
@@ -33,7 +34,7 @@ export default function Std_questions() {
     <>
       <div>
         <span><h2>Questions </h2></span>
-        <span><Counter subId = {subId}/></span>
+        <span><Counter dur = {Sub.duration}/></span>
 
         {Qns.length > 0 && subId !== null ? (
           Qns.map((qn) => (

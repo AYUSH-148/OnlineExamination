@@ -1,12 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ExamContext from '../context/exam/examContext';
 const Counter = (props) => {
-  const context = useContext(ExamContext);
-  const {get_subject,Sub} = context;
   const {subId} = props;
   const navigate = useNavigate();
-  
+  const {dur} = props;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -15,14 +12,18 @@ const Counter = (props) => {
 
     return () => clearInterval(interval);
   }, []);
-  useEffect(()=>{
-    const fetchdata = async()=>{
-      await get_subject(subId);
-    }
-    fetchdata();
-  },[])
+
+ 
+  // console.log(Sub.duration);
+
+  // console.log(sub)
+  // console.log(Sub.duration);
   // const [time, setTime] = useState({ hours:Sub.duration.hours ,minutes:Sub.duration.minutes, seconds:Sub.duration.seconds });
   const [time, setTime] = useState({ hours:'00' ,minutes:'02', seconds:'00' });
+  // console.log(dur)
+  // if(Sub.duration!=undefined){
+  //   setTime({  hours:Sub.duration.hours ,minutes:Sub.duration.minutes, seconds:Sub.duration.seconds });
+  // }
 
   const countdown = () => {
     setTime(prevTime => {
@@ -58,14 +59,14 @@ const Counter = (props) => {
     console.log('Timer ended!');
     navigate(`/getMarks/${subId}`);
   };
-
+  
   return (
     <div>
-      <div className="digital-watch">
-        <span id="hours">{time.hours}</span>:
-        <span id="minutes">{time.minutes}</span>:
-        <span id="seconds">{time.seconds}</span>
-      </div>
+        <div className="digital-watch">
+          <span id="hours">{time.hours}</span>:
+          <span id="minutes">{time.minutes}</span>:
+          <span id="seconds">{time.seconds}</span>
+        </div>
     </div>
   );
 };
