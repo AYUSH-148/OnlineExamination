@@ -1,0 +1,21 @@
+.add_sub{
+    display: flex;
+    align-items: center;
+  }
+  .add_sub div input{
+    margin-left: 10px;
+  }
+  .add_sub div{
+    margin: 0 20px;
+  }
+  .add_sub button{
+    margin-top:15px ;
+    font-size: 13px;
+    padding: 8px;
+    width:48px
+  }
+
+  .sub_btn{
+    width:10%;
+    height:10%;
+  }

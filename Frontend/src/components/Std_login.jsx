@@ -34,7 +34,7 @@ export default function Std_login() {
       
       <div>
         <label htmlFor="rollNo">Roll No:</label>
-        <input  type="text"  id="rollNo"  name="rollNo"  value={rollNo}
+        <input  type="text"   name="rollNo"  value={rollNo}  className="border border-slate-800"
           onChange={(e) => setRollNo(e.target.value)}
           required
         />
@@ -42,12 +42,12 @@ export default function Std_login() {
       
       <div>
         <label htmlFor="password">Password:</label>
-        <input  type="password"  id="password"  name="password"  value={password}
+        <input  type="password" name="password"  value={password}  className="border border-slate-800"
           onChange={(e) => setPassword(e.target.value)}
           required
         />
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" className="bg-blue-500 text-black">Submit</button>
     </form>
   );
 }

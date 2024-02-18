@@ -7,7 +7,7 @@ export default function Home() {
     <div>
         <div>
           <h2>Admin Section</h2>
-          <div><button className="secondary-btn "><Link to="/admin_login" className='text-red-500' role="button">Admin </Link></button></div>
+          <div><button className="secondary-btn "><Link to="/admin_login" role="button">Admin </Link></button></div>
         </div>
         <br />
         <div>

@@ -28,26 +28,26 @@ export default function AddSub() {
         <>
             <form className='add_sub' onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="code">Subject Code:</label>
+                    <label htmlFor="code" className='ml-2'>Subject Code:</label>
                     <input
-                        type="text" id="code" name="code" value={code}
-                        onChange={(e) => setCode(e.target.value)}
+                        type="text"  name="code" value={code}
+                        onChange={(e) => setCode(e.target.value)} className="border border-slate-800"
+                        required 
+                    />
+                </div>
+                <div>
+                    <label htmlFor="name"  className='ml-2'>Subject Name:</label>
+                    <input
+                        type="text" name="name" value={name}
+                        onChange={(e) => setName(e.target.value)} className="border border-slate-800"
                         required
                     />
                 </div>
                 <div>
-                    <label htmlFor="name">Subject Name:</label>
-                    <input
-                        type="text" id="name" name="name" value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                <label htmlFor="duration">Duration:</label>
-                    <input type="text" id="duration" name="duration" placeholder="hh:mm:ss"
+                <label htmlFor="duration"  className='ml-2'>Duration:</label>
+                    <input type="text"  name="duration" placeholder="hh:mm:ss"
                      pattern="[0-9]{2}:[0-5][0-9]:[0-5][0-9]" 
-                     title="Please enter a valid duration in the format hh:mm:ss" 
+                     title="Please enter a valid duration in the format hh:mm:ss"  className="border border-slate-800"
                      onChange={(e) => setDuration(e.target.value)}
                      value={duration} 
                      required/>

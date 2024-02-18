@@ -1,4 +1,8 @@
 import './css/Home.css';
+import './css/navbar.css';
+import './css/question.css';
+import './css/subject.css';
+import './css/form.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import  Toaster  from "../src/components/ui/toaster"

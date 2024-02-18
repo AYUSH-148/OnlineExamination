@@ -49,21 +49,21 @@ export default function Admin_login() {
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email">Email:</label>
-            <input
-              type="email" id="email" name="email" value={email}
+            <input className="border border-slate-800"
+              type="email"  name="email" value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
           <div>
             <label htmlFor="password">Password:</label>
-            <input
-              type="password" id="password" name="password" value={password}
+            <input className="border border-slate-800"
+              type="password"  name="password" value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <button type="submit">Submit</button>
+          <button type="submit" className="bg-blue-500 text-black">Submit</button>
         </form>
       </div>
      

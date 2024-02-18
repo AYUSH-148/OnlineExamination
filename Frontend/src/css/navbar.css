@@ -1,0 +1,25 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333; /* Background color of the navbar */
+    padding: 20px 20px; /* Add padding for better spacing */
+    color: white; /* Text color */
+  }
+  
+  
+  .navbar-logout button {
+    padding: 8px 16px; /* Add padding to the button */
+    background-color: #f44336; /* Red color for logout button */
+    color: white; /* Text color */
+    border: none; /* Remove default button border */
+    border-radius: 4px; /* Add border radius for button */
+    cursor: pointer; /* Add pointer cursor on hover */
+  }
+  
+  .navbar-logout button:hover {
+    background-color: #d32f2f; /* Darker shade of red on hover */
+  }
+  
+  
+  

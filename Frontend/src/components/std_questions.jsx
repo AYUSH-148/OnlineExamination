@@ -29,7 +29,7 @@ export default function Std_questions() {
     <>
       <div>
         <span><h2>Questions </h2></span>
-        <span><Counter dur = {Sub.duration}/></span>
+        {/* <span><Counter dur = {Sub.duration}/></span> */}
 
         {Qns.length > 0 && subId !== null ? (
           Qns.map((qn) => (

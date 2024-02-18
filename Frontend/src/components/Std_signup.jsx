@@ -33,40 +33,40 @@ const StudentForm = () => {
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="name">Name:</label>
-        <input  type="text"  id="name"  name="name"  value={name}
+        <input  type="text"   name="name"  value={name} className="border border-slate-800"
           onChange={(e) => setName(e.target.value)}
           required
         />
       </div>
       <div>
         <label htmlFor="rollNo">Roll No:</label>
-        <input  type="text"  id="rollNo"  name="rollNo"  value={rollNo}
+        <input  type="text"   name="rollNo"  value={rollNo} className="border border-slate-800"
           onChange={(e) => setRollNo(e.target.value)}
           required
         />
       </div>
       <div>
         <label htmlFor="email">Email:</label>
-        <input  type="email"  id="email"  name="email"  value={email}
+        <input  type="email"   name="email"  value={email} className="border border-slate-800"
           onChange={(e) => setEmail(e.target.value)}
           required
         />
       </div>
       <div>
         <label htmlFor="phoneNo">Phone No:</label>
-        <input  type="text"  id="phoneNo"  name="phoneNo"  value={phoneNo}
+        <input  type="text" name="phoneNo"  value={phoneNo} className="border border-slate-800"
           onChange={(e) => setPhoneNo(e.target.value)}
           required
         />
       </div>
       <div>
         <label htmlFor="password">Password:</label>
-        <input  type="password"  id="password"  name="password"  value={password}
+        <input  type="password"    name="password"  value={password} className="border border-slate-800"
           onChange={(e) => setPassword(e.target.value)}
           required
         />
       </div>
-      <button type="submit">Submit</button>
+      <button type="submit" className="bg-blue-500 text-black">Submit</button>
     </form>
   );
 };
