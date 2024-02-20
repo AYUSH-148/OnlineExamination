@@ -7,7 +7,7 @@ const questionSchema = new mongoose.Schema({
     options: [
       { text: { type: String, required: true }, isCorrect: { type: Boolean, required: true } }
     ],
-    // marks: number  
+    isAnswered: {type: Boolean, default:false}
   });
   const qns = mongoose.model('questions', questionSchema);
   module.exports = qns;

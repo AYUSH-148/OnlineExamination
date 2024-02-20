@@ -57,7 +57,7 @@ const Counter = (props) => {
 
   const handleTimerEnd = () => {
     console.log('Timer ended!');
-    // navigate(`/getMarks/${subId}`);
+    navigate(`/getMarks/${subId}`);
   };
   
   return (

@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 export default function Sub_students() {
     const { stdId } = useParams();
     const context = useContext(ExamContext)
-    const { Sub=[], getallSubjects } = context;
+    const { Sub, getallSubjects } = context;
     const navigate = useNavigate();
     useEffect(() => {
         const fetchData = async () => {
@@ -25,9 +25,9 @@ export default function Sub_students() {
         <div>
             <h3>Subjects</h3>
             <div>
-                {Sub?Sub.map((sub) => {
+                {Sub.map((sub) => {
                     return <Std_SubjectItem key={sub._id} sub={sub} std_id = {stdId} />;
-                }):" "}
+                })}
             </div>
         </div>
     );

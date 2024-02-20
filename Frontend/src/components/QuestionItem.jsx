@@ -2,8 +2,7 @@ import React, { useContext } from 'react';
 import { useDispatch } from "react-redux";
 import { qnsActions } from "../store/qns"
 import { useNavigate } from 'react-router';
-import { Label } from "./ui/label"
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group"
+
 import ExamContext from '../context/exam/examContext';
 
 
@@ -44,7 +43,7 @@ export default function QuestionItem(props) {
         <li className=" text-lg my-3 "> {qn.options[3].text}</li>
       </ul>
       <hr />
-      <div className='text-xl mt-6'>Ans. {correctAns()}</div>
+      <div className='text-xl mt-6 font-semibold'>Ans. {correctAns()}</div>
 
     </div>
   );

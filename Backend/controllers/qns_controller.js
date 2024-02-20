@@ -71,13 +71,16 @@ exports.update_qn = ([
     body('options.*.isCorrect', 'isCorrect must be a boolean').isBoolean(),
 ],async(req,res) => {
 
-    const { qn,options} = req.body;
+    const { qn,options,isAnswered = false} = req.body;
+
     const newqn = {};
 
     if(qn){
         newqn.qn = qn;}
     if(options){
         newqn.options = options;}
+    if(isAnswered){
+        newqn.isAnswered = isAnswered;}
    
     let question = await qns_db.find({
         subject: req.params.sub_id,

@@ -1,31 +1,34 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, {  useContext,useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { qnsActions } from '../store/qns';
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group"
+import ExamContext from '../context/exam/examContext';
 
 const Std_QuestionItem = React.memo((props) => {
+
+  const context = useContext(ExamContext)
   const dispatch = useDispatch();
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const { qn,sub_id } = props;
+  const {updateQn_perSub} = context;
 
   useEffect(() => {
     const run = () => {
       dispatch(qnsActions.setAnsArrayNull());
-      // console.log(selectedAnswer);
     };
     run();
   }, []);
 
-  const { qn } = props;
+  
   const handleOptionChange = (event) => {
     setSelectedAnswer(event.target.value);
   };
   const handleSubmit = async (e) => {
+    updateQn_perSub(sub_id,qn._id,qn.qn,qn.options,true);
     console.log({ qn_id: qn._id, ans: selectedAnswer });
     dispatch(qnsActions.setAnsArray({ qn_id: qn._id, ans: selectedAnswer }));
   };
   return (
     <>
-
       <div className="question-container">
         <div className="question text-xl mb-5 pt-0">{qn.qn}</div>
         <hr />
@@ -35,7 +38,7 @@ const Std_QuestionItem = React.memo((props) => {
               <input
                 type="radio"
                 id={`option-${option._id}`}
-                className='radio'
+                className='radio cursor-pointer'
                 name="selectedAnswer"
                 value={option.isCorrect}
                 onChange={handleOptionChange}

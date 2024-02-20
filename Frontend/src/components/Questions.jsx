@@ -25,7 +25,6 @@ export default function Questions() {
       </div>
       {Qns.map((qn) => {
         return <QuestionItem key={qn._id} qn={qn} sub_id={id} />
-        // return <Noteitem key={note._id} note={note} />;
       })}
     </div>
   );

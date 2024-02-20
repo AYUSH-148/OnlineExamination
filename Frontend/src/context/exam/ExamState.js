@@ -74,6 +74,7 @@ const ExamState = (props) => {
                     "subject": json.newQuestion.subject,
                     "qn": json.newQuestion.qn,
                     "options": json.newQuestion.options,
+                    "isAnswered": json.newQuestion.isAnswered,
                     "__v": 0
                 }
                 setQns([...Qns, new_qn]);
@@ -113,7 +114,7 @@ const ExamState = (props) => {
         }
     }
 
-    const updateQn_perSub = async (sub_id, qn_id, qn, options) => {
+    const updateQn_perSub = async (sub_id, qn_id, qn, options,isAnswered = false) => {
         try {
             const response = await fetch(`${host}/api/questions/update_qn/${sub_id}/${qn_id}`, {
                 method: 'PATCH',
@@ -121,25 +122,23 @@ const ExamState = (props) => {
                     'Content-Type': 'application/json',
                     'auth_token': localStorage.getItem('token')
                 },
-                body: JSON.stringify({ sub_id, qn_id, qn, options })
+                body: JSON.stringify({ sub_id, qn_id, qn, options ,isAnswered})
 
             });
             if (!response.ok) {
                 throw new Error(`Failed to update note with ID ${qn_id}`);
             }
             const json = await response.json(); 
+            // console.log(json);
             if(json.success == true){
                 for (let index = 0; index < Qns.length; index++) {
                     if (Qns[index]._id === qn_id) {
                         Qns[index].qn = qn;
                         Qns[index].options = options;
+                        Qns[index].isAnswered = isAnswered;
                         break;
                     }
                 }
-                const newQns = Qns.filter((qn) => qn._id !== qn_id);
-                setQns(newQns);
-              
-    
             }
 
            
