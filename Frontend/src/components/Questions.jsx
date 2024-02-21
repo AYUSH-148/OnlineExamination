@@ -19,10 +19,8 @@ export default function Questions() {
   return (
     <div>
       <AddQuestion id={id} />
-      <div>
-        <span><h2>Questions</h2></span>
-        
-      </div>
+      <hr />
+      <div className='text-center my-20 text-3xl font-semibold'>Questions</div>
       {Qns.map((qn) => {
         return <QuestionItem key={qn._id} qn={qn} sub_id={id} />
       })}

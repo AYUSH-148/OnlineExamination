@@ -31,7 +31,7 @@ export default function QuestionItem(props) {
     return ans;
   }
   return (
-    <div className="question-container">
+    <div className="question-container ">
       <button onClick={() => handleDelete(sub_id, qn._id)}>Delete</button>
       <button onClick={() => handleEdit()}>Edit</button>
 

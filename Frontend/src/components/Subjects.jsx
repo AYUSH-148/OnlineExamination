@@ -22,6 +22,8 @@ export default function Subjects() {
     return (
         <>
         <AddSub/>
+        <hr />
+        <div className='pl-40 mt-20 text-2xl font-semibold'>Computer Science (Sc)</div>
         <div >
             {Sub.map((sub) => {
                 return <SubjectItem key={sub._id} sub={sub}  />;
