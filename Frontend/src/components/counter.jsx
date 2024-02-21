@@ -19,7 +19,7 @@ const Counter = (props) => {
   // console.log(sub)
   // console.log(Sub.duration);
   // const [time, setTime] = useState({ hours:Sub.duration.hours ,minutes:Sub.duration.minutes, seconds:Sub.duration.seconds });
-  const [time, setTime] = useState({ hours:'00' ,minutes:'02', seconds:'00' });
+  const [time, setTime] = useState({ hours:'00' ,minutes:'00', seconds:'30' });
   // console.log(dur)
   // if(Sub.duration!=undefined){
   //   setTime({  hours:Sub.duration.hours ,minutes:Sub.duration.minutes, seconds:Sub.duration.seconds });

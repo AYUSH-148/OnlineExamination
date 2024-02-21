@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <nav className="navbar mb-5">
       <div className="navbar-header">
-        <h1 className='text-xl'>Navbar</h1>
+        <h1 className='text-xl'>OnlineExamination System</h1>
       </div>
       <div className="navbar-logout">
         {showLogout&&<button onClick={handleLogout}>Logout</button>}

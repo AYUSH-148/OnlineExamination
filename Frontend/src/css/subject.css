@@ -1,6 +1,7 @@
 .add_sub{
     display: flex;
     align-items: center;
+    
   }
   .add_sub div input{
     margin: 0 5px;

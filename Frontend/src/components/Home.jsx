@@ -10,8 +10,10 @@ export default function Home() {
           <Admin_login />
         </div>
         <br />
+        <br />
+        <hr />
         <div>
-          <h2 className='ml-8 font-bold text-xl'>User: Student</h2>
+          <h2 className='ml-8 font-bold text-xl mt-5'>User: Student</h2>
           <button className="primary-btn"> <Link to="/student_signup" role="button">New Student </Link></button>
           <button className="primary-btn"><Link to="/student_login" role="button">Have an Account? Sign in  </Link></button>
         </div>

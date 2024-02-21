@@ -26,8 +26,8 @@ export default function Admin_login() {
 
     if (json.success) {
       toast({
-        title: "Logged in successfully!",
-        description: "...loading",
+        title: "Success!",
+        description: "Logged in successfully",
       })
       localStorage.setItem('token', json.auth_token);
       navigate(`/subjects/${json.admin._id}`);

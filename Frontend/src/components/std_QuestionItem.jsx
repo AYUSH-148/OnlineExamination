@@ -2,9 +2,11 @@ import React, {  useContext,useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { qnsActions } from '../store/qns';
 import ExamContext from '../context/exam/examContext';
+import { useToast } from "../../src/components/ui/use-toast"
+import { ToastAction } from "../../src/components/ui/toast"
 
 const Std_QuestionItem = React.memo((props) => {
-
+  const {toast} = useToast();
   const context = useContext(ExamContext)
   const dispatch = useDispatch();
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -26,6 +28,10 @@ const Std_QuestionItem = React.memo((props) => {
     updateQn_perSub(sub_id,qn._id,qn.qn,qn.options,true);
     console.log({ qn_id: qn._id, ans: selectedAnswer });
     dispatch(qnsActions.setAnsArray({ qn_id: qn._id, ans: selectedAnswer }));
+    toast({
+      title: "Answer Saved",
+      description: "",
+    })
   };
   return (
     <>
