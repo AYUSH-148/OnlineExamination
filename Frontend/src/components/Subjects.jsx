@@ -22,7 +22,7 @@ export default function Subjects() {
     return (
         <>
         <AddSub/>
-        <div>
+        <div >
             {Sub.map((sub) => {
                 return <SubjectItem key={sub._id} sub={sub}  />;
             })}

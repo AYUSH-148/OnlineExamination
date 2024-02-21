@@ -26,7 +26,7 @@ export default function AddSub() {
 
     return (
         <>
-            <form className='add_sub' onSubmit={handleSubmit}>
+            <form className='add_sub ml-40 mb-4' onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="code" className='ml-2'>Subject Code:</label>
                     <input
@@ -47,7 +47,7 @@ export default function AddSub() {
                 <label htmlFor="duration"  className='ml-2'>Duration:</label>
                     <input type="text"  name="duration" placeholder="hh:mm:ss"
                      pattern="[0-9]{2}:[0-5][0-9]:[0-5][0-9]" 
-                     title="Please enter a valid duration in the format hh:mm:ss"  className="border border-slate-800"
+                     title="Please enter a valid duration in the format hh:mm:ss"  className="border border-slate-800 "
                      onChange={(e) => setDuration(e.target.value)}
                      value={duration} 
                      required/>

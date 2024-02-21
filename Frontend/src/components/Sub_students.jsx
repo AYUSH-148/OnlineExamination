@@ -23,7 +23,7 @@ export default function Sub_students() {
 
     return (
         <div>
-            <h3>Subjects</h3>
+            <h3 className='text-xl font-bold ml-[150px] mt-10'>Computer Science (Cs)</h3>
             <div>
                 {Sub.map((sub) => {
                     return <Std_SubjectItem key={sub._id} sub={sub} std_id = {stdId} />;

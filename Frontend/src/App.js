@@ -12,7 +12,6 @@ import ExamState from './context/exam/ExamState';
 import Home from './components/Home';
 import Std_signup from './components/Std_signup'
 import Std_login from './components/Std_login'
-import Admin_login from './components/Admin_login'
 import Subjects from './components/Subjects';
 import Questions from './components/Questions';
 import EditQuestion from './components/EditQuestion';
@@ -33,7 +32,6 @@ function App() {
                       <Route exact path='/' element={<Home/>} />
                       <Route exact path='/student_signup' element={<Std_signup/>} />
                       <Route exact path='/student_login' element={<Std_login/>} />
-                      <Route exact path='/admin_login' element={<Admin_login/>} />
                       <Route exact path='/subjects/:id' element={<Subjects/>} />
                       <Route exact path='/questions/:id' element={<Questions/>} />
                       <Route exact path='/:sub_id/edit_qn/:id' element={<EditQuestion/>} />
