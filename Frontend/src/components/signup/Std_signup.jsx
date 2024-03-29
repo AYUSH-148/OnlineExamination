@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const StudentForm = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [rollNo, setRollNo] = useState('');
   const [email, setEmail] = useState('');
@@ -20,7 +21,7 @@ const StudentForm = () => {
     const json = await response.json();
     // console.log(json)
     if (json.success) {
-      
+      navigate("/student_login")
       localStorage.setItem('token', json.auth_token); 
     }
     else{

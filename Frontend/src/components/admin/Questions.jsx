@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import ExamContext from '../context/exam/examContext'
+import ExamContext from '../../context/exam/examContext'
 import { useParams } from 'react-router-dom';
 import QuestionItem from './QuestionItem';
 import AddQuestion from './AddQuestion';

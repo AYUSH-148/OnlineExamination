@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useToast } from "../../src/components/ui/use-toast"
-import { ToastAction } from "../../src/components/ui/toast"
+import { useToast } from "../ui/use-toast"
+import { ToastAction } from "../ui/toast"
 
 
 // import { useAlert } from 'react-alert'

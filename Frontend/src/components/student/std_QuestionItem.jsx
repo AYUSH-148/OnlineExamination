@@ -1,9 +1,9 @@
 import React, {  useContext,useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { qnsActions } from '../store/qns';
-import ExamContext from '../context/exam/examContext';
-import { useToast } from "../../src/components/ui/use-toast"
-import { ToastAction } from "../../src/components/ui/toast"
+import { qnsActions } from '../../store/qns';
+import ExamContext from '../../context/exam/examContext';
+import { useToast } from "../ui/use-toast"
+import Loader from '../Loader';
 
 const Std_QuestionItem = React.memo((props) => {
   const {toast} = useToast();
@@ -11,7 +11,7 @@ const Std_QuestionItem = React.memo((props) => {
   const dispatch = useDispatch();
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const { qn,sub_id } = props;
-  const {updateQn_perSub} = context;
+  const {updateQn_perSub, set_marksPerQn } = context;
 
   useEffect(() => {
     const run = () => {
@@ -21,21 +21,39 @@ const Std_QuestionItem = React.memo((props) => {
   }, []);
 
   
+  
+  
+  
   const handleOptionChange = (event) => {
     setSelectedAnswer(event.target.value);
   };
   const handleSubmit = async (e) => {
-    updateQn_perSub(sub_id,qn._id,qn.qn,qn.options,true);
-    console.log({ qn_id: qn._id, ans: selectedAnswer });
-    dispatch(qnsActions.setAnsArray({ qn_id: qn._id, ans: selectedAnswer }));
+    
+    await updateQn_perSub(sub_id,qn._id,qn.qn,qn.options,true,qn.weight);
+    console.log(selectedAnswer);
+    if(selectedAnswer === 'true' ){
+      console.log(qn.weight);
+      set_marksPerQn(sub_id,qn._id,qn.weight,qn.weight);
+    }
+    else{
+      set_marksPerQn(sub_id,qn._id,0,qn.weight);
+    }
+    if(selectedAnswer ==='true'){
+      dispatch(qnsActions.setAnsArray({ qn_id: qn._id, ans: selectedAnswer ,marks: qn.weight}));
+    }
+    else{
+      dispatch(qnsActions.setAnsArray({ qn_id: qn._id, ans: selectedAnswer ,marks: 0}));
+
+    }
     toast({
       title: "Answer Saved",
+      
       description: "",
     })
   };
   return (
     <>
-      <div className="question-container">
+      {qn.weight!==undefined?<div className="question-container">
         <div className="question text-xl mb-5 pt-0">{qn.qn}</div>
         <hr />
         <ul className="options">
@@ -53,12 +71,12 @@ const Std_QuestionItem = React.memo((props) => {
             </li>
           ))}
         </ul>
-
+        <p>{qn.weight}</p>
         <button type="button" className='bg-sky-700 ml-2 w-1/5 ' onClick={() => handleSubmit()}>
           Save
         </button>
 
-      </div>
+      </div>:<Loader/>}
 
 
     </>

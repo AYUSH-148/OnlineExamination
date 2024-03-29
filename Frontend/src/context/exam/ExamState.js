@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import ExamContext from "./examContext";
- 
+import { useDispatch } from "react-redux";
+import { qnsActions } from "../../store/qns";
 const ExamState = (props) => {
-
+    const dispatch = useDispatch();
     const host = "http://localhost:7000";
-    const admin = {}
+    let [admin,setAdmin] = useState({})
     const qns_initial = [];
 
     let [Qns, setQns] = useState(qns_initial);
@@ -14,11 +15,10 @@ const ExamState = (props) => {
     let [isAttempt, setisAttempt] = useState(attempt_init);
     const students_initial = [];
     let [Stds, setStds] = useState(students_initial);
-    let get_onestd = {}
     const subject_initial = [];
     let [Sub, setSub] = useState(subject_initial);
-    let [marks, setMarks] = useState(0);
-    let [sub_marks, setSub_marks] = useState(0);
+    let [marks, setMarks] = useState([]);
+    let [sub_marks, setSub_marks] = useState([]);
 
     const getallAdmin = async () => {
         try {
@@ -30,7 +30,22 @@ const ExamState = (props) => {
             });
 
             const json = await response.json();
-            admin = json
+            setAdmin(json);
+        } catch (error) {
+            console.error('Error fetching admin:', error);
+        }
+    }
+    const update_admin = async (id,name,email,phoneNo, profession) => {
+        try {
+            const response = await fetch(`${host}/api/admin/edit_admin/${id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name,email,phoneNo, profession })
+            });
+
+            
         } catch (error) {
             console.error('Error fetching admin:', error);
         }
@@ -57,7 +72,7 @@ const ExamState = (props) => {
         }
     }
 
-    const createQn_perSub = async (id, qn, options) => {
+    const createQn_perSub = async (id, qn, options,weight) => {
         try {
             const response = await fetch(`${host}/api/questions/create_qns/${id}`, {
                 method: 'POST',
@@ -65,25 +80,26 @@ const ExamState = (props) => {
                     'Content-Type': 'application/json',
                     'auth_token': localStorage.getItem('token')
                 },
-                body: JSON.stringify({ id, qn, options })
+                body: JSON.stringify({ qn, options ,weight})
             });
             const json = await response.json();
-            if(json.success == true){
+            if (json.success == true) {
                 var new_qn = {
                     "_id": json.newQuestion._id,
                     "subject": json.newQuestion.subject,
                     "qn": json.newQuestion.qn,
                     "options": json.newQuestion.options,
                     "isAnswered": json.newQuestion.isAnswered,
+                    "weight": json.newQuestion.weight,
                     "__v": 0
                 }
                 setQns([...Qns, new_qn]);
-                
+
             }
-            else{
-               
+            else {
+
             }
-            
+
         } catch (error) {
             console.error('Error in creating Question:', error);
         }
@@ -100,48 +116,49 @@ const ExamState = (props) => {
             });
             const json = await response.json(); // Wait for the JSON response
             console.log("Started deleting")
-            if(json.msg == "Success"){
+            if (json.msg == "Success") {
                 console.log("deleteing");
                 const newQns = Qns.filter((qn) => qn._id !== qn_id);
                 setQns(newQns);
-               
+
             }
 
-            
+
 
         } catch (error) {
             console.error('Error in creating Question:', error);
         }
     }
 
-    const updateQn_perSub = async (sub_id, qn_id, qn, options,isAnswered = false) => {
+    const updateQn_perSub = async (sub_id, qn_id, qn, options, isAnswered = false,weight) => {
         try {
             const response = await fetch(`${host}/api/questions/update_qn/${sub_id}/${qn_id}`, {
-                method: 'PATCH',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'auth_token': localStorage.getItem('token')
                 },
-                body: JSON.stringify({ sub_id, qn_id, qn, options ,isAnswered})
+                body: JSON.stringify({qn, options, isAnswered, weight})
 
             });
             if (!response.ok) {
                 throw new Error(`Failed to update note with ID ${qn_id}`);
             }
-            const json = await response.json(); 
+            const json = await response.json();
             // console.log(json);
-            if(json.success == true){
+            if (json.success == true) {
                 for (let index = 0; index < Qns.length; index++) {
                     if (Qns[index]._id === qn_id) {
                         Qns[index].qn = qn;
                         Qns[index].options = options;
                         Qns[index].isAnswered = isAnswered;
+                        Qns[index].weight = weight;
                         break;
                     }
                 }
             }
 
-           
+
         } catch (error) {
             console.error('Error in creating Question:', error);
         }
@@ -233,7 +250,7 @@ const ExamState = (props) => {
         }
     }
     //'auth_token': localStorage.getItem('token')
-
+    let [OneStd, setOneStd] = useState({});
     const getStudent = async () => {
         try {
             const response = await fetch(`${host}/api/students/get_std`, {
@@ -244,13 +261,34 @@ const ExamState = (props) => {
                 },
             });
             const json = await response.json();
-            get_onestd = json;
+
+            setOneStd(json);
 
         } catch (error) {
             console.error('Error fetching students:', error);
         }
     }
+    const update_std = async (name,rollNo,email,phoneNo) => {
+        try {
+            const response = await fetch(`${host}/api/students/update_std`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth_token': localStorage.getItem('token')
 
+                },
+                body: JSON.stringify({ name,rollNo,email,phoneNo })
+            });
+            const json = await response.json();
+            if(json.success){
+                console.log(json.new_std);
+                setOneStd(json.new_std);
+            }
+            
+        } catch (error) {
+            console.error('Error fetching admin:', error);
+        }
+    }
 
     const getallSubjects = async () => {
         try {
@@ -275,13 +313,14 @@ const ExamState = (props) => {
                 },
             });
             const json = await response.json();
+            dispatch(qnsActions.setTimer(json.duration));
             setSub(json);
         } catch (error) {
             console.error('Error fetching subjects:', error);
         }
     }
 
-    const createSubject = async (code, name,duration) => {
+    const createSubject = async (code, name, duration, description) => {
         try {
             const response = await fetch(`${host}/api/subjects/create_sub`, {
                 method: 'POST',
@@ -289,26 +328,24 @@ const ExamState = (props) => {
                     'Content-Type': 'application/json',
                     'auth_token': localStorage.getItem('token')
                 },
-                body: JSON.stringify({ code, name ,duration})
+                body: JSON.stringify({ code, name, duration, description })
             });
             const json = await response.json();
-            if(json.success ==true){
+            if (json.success == true) {
                 setSub(prevState => {
                     var sub = {
                         "_id": json.sub._id,
                         "code": json.sub.code,
                         "name": json.sub.name,
-                        "duration":json.sub.duration,
+                        "duration": json.sub.duration,
+                        "description": json.sub.description,
                         "__v": 0
                     };
                     return [sub, ...prevState];
-                });  
-                
+                });
+
             }
-            else{
-                 
-            }
-            
+
         } catch (error) {
             console.error('Error in creating subject:', error);
         }
@@ -325,21 +362,56 @@ const ExamState = (props) => {
             });
             const json = await response.json(); // Wait for the JSON response
             console.log(`Deleting a subject with id ${id}`, json);
-            if(json.msg == "Success"){
+            if (json.msg == "Success") {
                 const newSub = Sub.filter((sub) => sub._id !== id);
                 setSub(newSub);
-                
-            }
-            
 
-            
+            }
+
+
+
 
         } catch (error) {
             console.error('Error in deleting subject:', error);
         }
     }
 
-    const update_marks = async (sub_id, marks) => {
+    const edit_subject = async (id,code, name, duration, description,status,availability) => {
+        try {
+            const response = await fetch(`${host}/api/subjects/update_sub/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'auth_token': localStorage.getItem('token')
+                },
+                body: JSON.stringify({ code, name, duration, description,status,availability })
+
+            });
+            const json = await response.json(); 
+            if(json.success === true){
+                for (let index = 0; index < Sub.length; index++) {
+                    if (Sub[index]._id === id ) {
+                        Sub[index].code = json.sub.code;
+                        Sub[index].name = json.sub.name;
+                        Sub[index].duration = json.sub.duration;
+                        Sub[index].description = json.sub.description;
+                        Sub[index].status = json.sub.status;
+                        Sub[index].availability = json.sub.availability;
+                        break;
+                    }
+                }
+            }
+            
+
+
+
+
+        } catch (error) {
+            console.error('Error in deleting subject:', error);
+        }
+    }
+
+    const update_marks = async (sub_id, marks, count_qns) => {
         try {
             const response = await fetch(`${host}/api/marks/update_marks/${sub_id}`, {
                 method: 'PATCH',
@@ -348,7 +420,7 @@ const ExamState = (props) => {
                     'auth_token': localStorage.getItem('token')
 
                 },
-                body: JSON.stringify({ marks })
+                body: JSON.stringify({ marks, count_qns })
 
             });
             if (!response.ok) {
@@ -356,8 +428,16 @@ const ExamState = (props) => {
             }
             const json = await response.json(); // Wait for the JSON response
             if (json.marks != undefined) {
-                setSub_marks(json.marks);
-                // console.log({"Subject Marks": sub_marks})
+
+                for (let index = 0; index < sub_marks.length; index++) {
+                    if (sub_marks[index].subject === sub_id && sub_marks[index].student ===  json.student) {
+                        sub_marks[index].marks = marks;
+                        sub_marks[index].count_qns = count_qns;
+                        sub_marks[index].time = json.time;
+                        break;
+                    }
+                }
+
             }
             else {
                 console.log("gand mara");
@@ -376,21 +456,14 @@ const ExamState = (props) => {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'auth_token': localStorage.getItem('token')
                 },
             });
             if (!response.ok) {
                 throw new Error(`Failed to get marks of std_if }`);
             }
             const json = await response.json(); // Wait for the JSON response
-            if (json.response.marks != undefined) {
-                setSub_marks(json.response.marks);
-            }
-            else {
-                console.log("gand mara");
-            }
-            setMarks(json.marks)
-            // console.log(finalsub_marks);
+            setSub_marks(json);
+            
 
         } catch (error) {
             console.error('Error in getting  marks', error);
@@ -405,16 +478,13 @@ const ExamState = (props) => {
                 headers: {
                     'Content-Type': 'application/json',
                     'auth_token': localStorage.getItem('token')
-
                 },
-                body: JSON.stringify({})
-
             });
             if (!response.ok) {
                 throw new Error(`Failed to get marks of std_id `);
             }
-            const json = await response.json(); // Wait for the JSON response
-            setMarks(json.marks)
+            const json = await response.json(); 
+            setMarks(json)
 
         }
         catch (error) {
@@ -440,8 +510,18 @@ const ExamState = (props) => {
                 throw new Error(`Failed to set marks of std_if `);
             }
             const json = await response.json(); // Wait for the JSON response
-            // console.log(json.marks);
-            // console.log({"data":json,"marks":marks});
+            setSub_marks(prevState => {
+                var marks = {
+                    "_id": json._id,
+                    "student": json.student,
+                    "subject": sub_id,
+                    "marks": json.marks,
+                    "date": json.date,
+                    "time": json.time,
+                    "count_qns": json.count_qns
+                };
+                return [marks, ...prevState];
+            });
 
 
         } catch (error) {
@@ -449,8 +529,7 @@ const ExamState = (props) => {
 
         }
     }
-
-    const set_marksPerQn = async (sub_id, qn_id, marks) => {
+    const set_marksPerQn = async (sub_id, qn_id, marks,max_marks) => {
         try {
             const response = await fetch(`${host}/api/marksPerQn/set_marksPerQn/${sub_id}/${qn_id}`, {
                 method: 'POST',
@@ -458,12 +537,19 @@ const ExamState = (props) => {
                     'Content-Type': 'application/json',
                     'auth_token': localStorage.getItem('token')
                 },
-                body: JSON.stringify({ sub_id, qn_id, marks })
+                body: JSON.stringify({ marks,max_marks })
             });
             if (!response.ok) {
                 throw new Error(`Failed to set marks of std_id`);
             }
-            const json = await response.json(); // Wait for the JSON response
+            const json = await response.json();
+            if(json.success === true){
+                console.log(json.newResponse);
+            }
+            else{
+                console.log({update_required: json.require_update});
+            }
+            
 
         } catch (error) {
             console.error('Error in getting  marks', error);
@@ -471,10 +557,10 @@ const ExamState = (props) => {
         }
     }
 
-    const [Qnmarks, setQnMarks] = useState(0);
-    const get_marksPerQn = async (sub_id, qn_id) => {
+    const [Qnmarks, setQnMarks] = useState([]);
+    const get_marksPerStd = async () => {
         try {
-            const response = await fetch(`${host}/api/marksPerQn/get_marksPerQn/${sub_id}/${qn_id}`, {
+            const response = await fetch(`${host}/api/marksPerQn/get_marksPerStd`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -484,12 +570,8 @@ const ExamState = (props) => {
             if (!response.ok) {
                 throw new Error(`Failed to get marks of std_if }`);
             }
-            const json = await response.json(); // Wait for the JSON response
-            console.log({ "sub": json.response.subject, "qn": json.response.question });
-            console.log({ "oringinal marks": json.response.marks })
-            setQnMarks(json.response.marks);
-            console.log({ "Qnmarks": Qnmarks });
-
+            const json = await response.json(); 
+            setQnMarks(json);
 
         } catch (error) {
             console.error('Error in getting  marks', error);
@@ -512,9 +594,8 @@ const ExamState = (props) => {
             if (!response.ok) {
                 throw new Error(`Failed to update marks of std_if }`);
             }
-            const json = await response.json(); // Wait for the JSON response
-
-            setQnMarks(_ => json.marks);
+            const json = await response.json(); 
+            console.log(json);
 
 
         } catch (error) {
@@ -523,14 +604,14 @@ const ExamState = (props) => {
     }
 
 
-   
+
     return (
         <ExamContext.Provider value={{
-            admin, getallAdmin, Qns, getQns_perSub, createQn_perSub, deleteQn_perSub, updateQn_perSub,
+            admin, getallAdmin,update_admin, Qns, getQns_perSub, createQn_perSub, deleteQn_perSub, updateQn_perSub,
             isAttempt, isAttempts, getallAttempts, getAttempt, createAttempt, changeAttempt,
-            Stds, get_onestd, getStudent, getallStudents,
-            Sub, getallSubjects,get_subject, createSubject, deleteSubject, marks, getmarksPerSub, update_marks, get_marks, set_marks, Qnmarks,
-            sub_marks, set_marksPerQn, get_marksPerQn, update_marksPerQn
+            Stds, OneStd, getStudent, getallStudents,update_std ,
+            Sub,edit_subject, getallSubjects, get_subject, createSubject, deleteSubject, marks, getmarksPerSub, update_marks, get_marks, set_marks, Qnmarks,
+            sub_marks, set_marksPerQn, get_marksPerStd, update_marksPerQn
         }}>
             {props.children}
         </ExamContext.Provider>

@@ -5,6 +5,5 @@ const std_token = require('../middleware/std_token');
 
 route.patch('/update_marksPerQn/:sub_id/:qn_id',std_token,controller.update_marksPerQn);
 route.post('/set_marksPerQn/:sub_id/:qn_id',std_token,controller.set_marksPerQn);
-route.get('/get_marksPerQn/:sub_id/:qn_id',std_token,controller.get_marksPerQn);
-route.get('/get_marksPerSub/:sub_id',std_token,controller.get_marksPerSub);
+route.get('/get_marksPerStd',std_token,controller.get_marksPerStd);
 module.exports = route;

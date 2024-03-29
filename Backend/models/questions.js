@@ -7,7 +7,8 @@ const questionSchema = new mongoose.Schema({
     options: [
       { text: { type: String, required: true }, isCorrect: { type: Boolean, required: true } }
     ],
-    isAnswered: {type: Boolean, default:false}
+    isAnswered: {type: Boolean, default:false},
+    weight:{type: Number, required:true}
   });
   const qns = mongoose.model('questions', questionSchema);
   module.exports = qns;

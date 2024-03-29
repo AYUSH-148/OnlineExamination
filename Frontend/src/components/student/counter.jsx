@@ -1,29 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 const Counter = (props) => {
-  const {subId} = props;
+  //-----------
+  const style = {
+    color: "f7f9fd"
+  }
+  //-----------
   const navigate = useNavigate();
-  const {dur} = props;
+  
+  const {dur,subId} = props;
+  const [time, setTime] = useState({ hours:'..' ,minutes:'..', seconds:'..'});
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      countdown();
-    }, 1000);
+    const timeoutId = setTimeout(() => {
+      setTime({ hours: dur.hours, minutes: dur.minutes, seconds: dur.seconds });
+      const interval = setInterval( async() => {
+        countdown();
+      }, 1000);
+      return () => clearInterval(interval);
 
-    return () => clearInterval(interval);
-  }, []);
-
- 
-  // console.log(Sub.duration);
-
-  // console.log(sub)
-  // console.log(Sub.duration);
-  // const [time, setTime] = useState({ hours:Sub.duration.hours ,minutes:Sub.duration.minutes, seconds:Sub.duration.seconds });
-  const [time, setTime] = useState({ hours:'00' ,minutes:'00', seconds:'30' });
-  // console.log(dur)
-  // if(Sub.duration!=undefined){
-  //   setTime({  hours:Sub.duration.hours ,minutes:Sub.duration.minutes, seconds:Sub.duration.seconds });
-  // }
+    },3000);
+    return () => clearTimeout(timeoutId);
+  }, [dur]); 
 
   const countdown = () => {
     setTime(prevTime => {
@@ -32,7 +30,6 @@ const Counter = (props) => {
       let seconds = parseInt(prevTime.seconds);
 
       if (minutes === 0 && seconds === 0&& hours == 0) {
-        // Call a function when the timer reaches 00:00
         handleTimerEnd();
       }
       else if(minutes===0 && hours>0 && seconds ===0){
@@ -61,12 +58,14 @@ const Counter = (props) => {
   };
   
   return (
-    <div>
-        <div className="digital-watch">
-          <span id="hours">{time.hours}</span>:
-          <span id="minutes">{time.minutes}</span>:
+    <div className="digital-watch">
+      {time.hours ==='..'?<i class="fa-solid fa-clock " style={style}></i>:
+        <div>
+          <span id="hours">{time.hours} </span>:
+          <span id="minutes">{time.minutes} </span>:
           <span id="seconds">{time.seconds}</span>
         </div>
+      }
     </div>
   );
 };

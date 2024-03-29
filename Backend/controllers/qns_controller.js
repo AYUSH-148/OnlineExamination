@@ -35,6 +35,7 @@ exports.create_qns = [
                 subject: req.params.sub_id,
                 qn: req.body.qn,
                 options: req.body.options,
+                weight:req.body.weight
             });
             res.json({"success":true,newQuestion});
         } catch (error) {
@@ -71,7 +72,7 @@ exports.update_qn = ([
     body('options.*.isCorrect', 'isCorrect must be a boolean').isBoolean(),
 ],async(req,res) => {
 
-    const { qn,options,isAnswered = false} = req.body;
+    const { qn,options,isAnswered = false,weight} = req.body;
 
     const newqn = {};
 
@@ -81,6 +82,8 @@ exports.update_qn = ([
         newqn.options = options;}
     if(isAnswered){
         newqn.isAnswered = isAnswered;}
+    if(weight){
+        newqn.weight = weight;}
    
     let question = await qns_db.find({
         subject: req.params.sub_id,

@@ -21,7 +21,7 @@ export default function Std_login() {
     if (json.success) {
      
       localStorage.setItem('token', json.auth_token); 
-      navigate(`/std_sub/${json.std._id}`);
+      navigate(`/student_home/${json.std._id}`);
     }
     else{
       

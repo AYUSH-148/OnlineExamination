@@ -1,6 +1,6 @@
 import React,{useState,useContext} from 'react';
-import { useSelector,useDispatch } from 'react-redux'
-import ExamContext from '../context/exam/examContext';
+import { useSelector} from 'react-redux'
+import ExamContext from '../../context/exam/examContext';
 import { useNavigate } from 'react-router';
 import { useParams } from 'react-router-dom';
 export default function EditQuestion() {
@@ -14,6 +14,7 @@ export default function EditQuestion() {
     const [Opt2, setOpt2] = useState(qn.options[1].text);
     const [Opt3, setOpt3] = useState(qn.options[2].text);
     const [Opt4, setOpt4] = useState(qn.options[3].text);
+    const [weight,setWeight] = useState(0);
     
     const handleSubmit = async (e)=>{
         e.preventDefault();
@@ -54,6 +55,10 @@ export default function EditQuestion() {
                     <option value="option3">Option 3 </option>
                     <option value="option4">Option 4 </option>
                 </select>
+
+                <label htmlFor="weight">Weight:</label>
+                <input className='border border-black mt-2' placeholder='marks contained by question' type="number" id="weight" name="weight" value={weight} onChange={(e) => setWeight(e.target.value)} required />
+                
                 <button className='bg-sky-600 text-lg ml-0 py-1 px-4' type="submit">Edit</button>
             </form>
         </>

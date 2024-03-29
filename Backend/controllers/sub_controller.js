@@ -37,9 +37,9 @@ exports.create_sub = ([
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const { code,name,duration} = req.body;
+    const { code,name,duration, description , length, max_marks} = req.body;
     const sub = await new sub_db({
-        code , name,duration
+        code , name,duration ,description, length, max_marks
     })
     sub
         .save(sub)
@@ -76,3 +76,44 @@ exports.delete_sub = async (req, res) => {
         });
     }
 };
+
+exports.update_sub = async(req,res) => {
+
+    const {  code,name,duration, description,length, max_marks, availability} = req.body;
+
+    const newsub = {};
+
+    if(code){
+        newsub.code = code;}
+    if(name){
+        newsub.name = name;}
+    if(duration){
+        newsub.duration = duration;}
+    if(description){
+        newsub.description = description;}
+    
+    if(availability){
+        newsub.availability = availability;}
+    if(length){
+        newsub.length = length;}
+    if(max_marks){
+        newsub.max_marks = max_marks;}
+   
+    let sub = await  sub_db.find({
+        subject: req.params.id,
+    });
+
+    if (!sub) {
+        return res.status(404).send("Not Found");
+    }
+    try {
+        sub  = await sub_db.findOneAndUpdate({ _id: req.params.id},{$set:newsub},{new:true})
+        res.status(200).json({"success":true,sub});   
+    } catch (error) {
+        res.status(500).send({
+            message: error.message || "Internal Server Error"
+        })       
+    }
+}
+
+

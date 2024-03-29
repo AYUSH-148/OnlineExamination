@@ -14,10 +14,10 @@ exports.update_marks = ([
         if (!std_marks) {
             return res.status(404).send("Not Found");
         }
-        let { marks } = req.body;
+        let { marks, count_qns } = req.body;
         // Use $inc to increment the existing marks by the specified amount
         marks = await marks_db.findOneAndUpdate(
-            {student:req.std.id ,subject:req.params.sub_id}, { $set: { marks } }, { new: true }
+            {student:req.std.id ,subject:req.params.sub_id}, { $set: { marks , count_qns} }, { new: true }
         );
         res.status(200).json(marks);
     } catch (error) {
@@ -27,6 +27,7 @@ exports.update_marks = ([
         });
     }
 });
+
 exports.set_marks = async (req, res) => {
     try {
         const { marks } = req.body;
@@ -58,8 +59,7 @@ exports.set_marks = async (req, res) => {
 //--------------------------------------------------------------------------------
 exports.get_marksPerSub= async (req, res) => {
     try {
-        let response = await marks_db.findOne({
-            student: req.std.id,
+        let response = await marks_db.find({
             subject: req.params.sub_id
         });
 
@@ -67,7 +67,7 @@ exports.get_marksPerSub= async (req, res) => {
             return res.status(404).send("Not Found");
         }
 
-        res.status(200).json({ response });
+        res.status(200).json( response );
     } catch (error) {
         res.status(500).send({
             message: error.message || "Internal Server Error"
@@ -79,12 +79,8 @@ exports.get_marksPerSub= async (req, res) => {
 exports.get_marks = async(req,res)=>{
     try{
         // Fetch all marks records for the given student
-        const marksRecords = await marks_db.find({  student: req.std.id,});
-
-        // Calculate total marks by summing up the 'marks' field in each record
-        const totalMarks = marksRecords.reduce((sum, record) => sum + record.marks, 0);
-
-        res.json({ totalMarks });
+        const marksRecords = await marks_db.find({student: req.std.id });
+        res.json(marksRecords);
     } catch (error) {
       console.error(error.message);
       res.status(500).send({

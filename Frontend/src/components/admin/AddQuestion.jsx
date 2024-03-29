@@ -1,12 +1,14 @@
 import React, { useState ,useContext} from 'react';
 import { useNavigate } from 'react-router';
-import ExamContext from '../context/exam/examContext';
+import ExamContext from '../../context/exam/examContext';
 export default function AddQuestion(props) {
     const [Qn,setQn] = useState('');
     const [Opt1,setOpt1] = useState('');
     const [Opt2,setOpt2] = useState('');
     const [Opt3,setOpt3] = useState('');
     const [Opt4,setOpt4] = useState('');
+    const [weight,setWeight] = useState(0);
+
     const {id} =props;
 
     const context = useContext(ExamContext);
@@ -21,8 +23,8 @@ export default function AddQuestion(props) {
             {"text":Opt3 ,"isCorrect":(ans==="option3")?true:false },
             {"text":Opt4 ,"isCorrect":(ans==="option4")?true:false }
         ];
-        console.log({"qn":Qn,"options":options})
-        await createQn_perSub(id,Qn,options);
+        console.log({"qn":Qn,"options":options,"weight":weight})
+        await createQn_perSub(id,Qn,options,weight);
         navigate(`/questions/${id}`);
     }
     
@@ -52,6 +54,10 @@ export default function AddQuestion(props) {
                 <option value="option3">Option 3 </option>
                 <option value="option4">Option 4 </option>
             </select>
+            
+            <label htmlFor="weight">Weight:</label>
+            <input className='border border-black mt-2' placeholder='marks contained by question' type="number" id="weight" name="weight" value={weight} onChange={(e) => setWeight(e.target.value)} required />
+
             <button type="submit" className='border border-black bg-sky-600'>Add Question</button>
         </form> 
         </>

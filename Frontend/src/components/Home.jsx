@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Admin_login from './Admin_login';
+import Admin_login from './login/Admin_login';
 export default function Home() {
   return (
     <>

@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { useDispatch } from "react-redux";
-import { qnsActions } from "../store/qns"
+import { qnsActions } from "../../store/qns"
 import { useNavigate } from 'react-router';
 
-import ExamContext from '../context/exam/examContext';
+import ExamContext from '../../context/exam/examContext';
 
 
 export default function QuestionItem(props) {

@@ -29,8 +29,11 @@ const salt = await bcrypt.genSalt(10);
 const secPass = await bcrypt.hash(req.body.password,salt)
 
 admin = await new admin_db({
+    name:req.body.name,
+    phoneNo:req.body.phoneNo,
     email: req.body.email,
     password: secPass,   
+    profession:req.body.profession
 })
 
 const data = {
@@ -101,8 +104,8 @@ exports.admin_login = ([
 //----------------------------------------------------------------------------
 exports.get_admin=(async(req,res)=>{
     try {
-        const admins = await admin_db.find({})
-        res.send(admins);
+        const admin = await admin_db.find({})
+        res.status(200).json(admin);
     } catch (error) {
         console.error(error.message);
         res.status(500).send({
@@ -111,34 +114,34 @@ exports.get_admin=(async(req,res)=>{
     }
 })
 
-exports.admin_logout = ([
-], async (req, res) => {
-    try{
-        let admin = await admin_db.findOne({email});
-        let success=false;
-        if(!admin){
-            return res.status(400).json({error:"Please try to login with correct credentials"});
-        }
-        const passwordCompare = await bcrypt.compare(password,admin.password);
-        // (i.e., the passwords match), passwordCompare will be true.
-        if(!passwordCompare){
-            return res.status(400).json({success,error:"Please try to login with correct credentials"});
-        }
-        const data = {
-            admin:{
-                id:admin._id
-            }
-        }
-        const auth_token=jwt.sign(data,JWT_SECRET);
+exports.update_admin=(async(req,res)=>{
+    const { name,email,phoneNo, profession} = req.body;
 
-        success = true;
-        res.json({success,auth_token,admin})
+    const data = {}
+    if(name){
+        data.name = name;}
+    if(email){
+        data.email = email;}
+    if(phoneNo){
+        data.phoneNo = phoneNo;}
+    if(profession){
+        data.profession = profession;
     }
-    catch(error){
-        console.error(error.message);
+   
+    let admin = await admin_db.find({
+        _id: req.params.id
+    });
+
+    if (!admin) {
+        return res.status(404).send("Not Found");
+    }
+    try {
+        new_admin  = await admin_db.findOneAndUpdate({_id:req.params.id},{$set:data},{new:true})
+        res.status(200).json({"success":true,new_admin})   
+    } catch (error) {
         res.status(500).send({
-            message: err.message || "Internal Server Error"
-        })
+            message: error.message || "Internal Server Error"
+        })       
     }
 })
 

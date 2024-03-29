@@ -144,3 +144,33 @@ exports.get_std=(async(req,res)=>{
 })
 
 //-------------------------------------------------------------------
+exports.update_std=(async(req,res)=>{
+    const { name,email,phoneNo, rollNo} = req.body;
+
+    const data = {}
+    if(name){
+        data.name = name;}
+    if(email){
+        data.email = email;}
+    if(phoneNo){
+        data.phoneNo = phoneNo;}
+    if(rollNo){
+        data.rollNo = rollNo;
+    }
+   
+    let std = await std_db.find({
+        _id: req.std.id
+    });
+
+    if (!std) {
+        return res.status(404).send("Not Found");
+    }
+    try {
+        new_std  = await std_db.findOneAndUpdate({_id:req.std.id},{$set:data},{new:true})
+        res.status(200).json({"success":true,new_std})   
+    } catch (error) {
+        res.status(500).send({
+            message: error.message || "Internal Server Error"
+        })       
+    }
+})
