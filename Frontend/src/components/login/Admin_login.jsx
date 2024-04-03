@@ -4,7 +4,6 @@ import { useToast } from "../ui/use-toast"
 import { ToastAction } from "../ui/toast"
 
 
-// import { useAlert } from 'react-alert'
 
 export default function Admin_login() {
   const { toast } = useToast()
@@ -30,7 +29,7 @@ export default function Admin_login() {
         description: "Logged in successfully",
       })
       localStorage.setItem('token', json.auth_token);
-      navigate(`/subjects/${json.admin._id}`);
+      navigate(`/admin_home/${json.admin._id}`);
     }
     else {
       toast({

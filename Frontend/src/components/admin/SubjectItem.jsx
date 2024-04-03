@@ -1,86 +1,91 @@
 import React, { useContext, useState } from 'react';
 import examContext from '../../context/exam/examContext'
-import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
-import {
-    HoverCard,
-    HoverCardContent,
-    HoverCardTrigger,
-} from "../ui/hover-card"
-
+import EditSubject from './EditSubject';
+import { badgeVariants } from "../ui/badge"
 import {
     Dialog,
     DialogContent,
     DialogDescription,
-    DialogHeader,
-    DialogTitle,
+
     DialogTrigger,
-} from "../ui/dialog"
-import EditSubject from './EditSubject';
+} from "../ui/dialog";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "../ui/tooltip"
 
 export default function SubjectItem(props) {
-    const [isHovered, setIsHovered] = useState(false);
     const context = useContext(examContext);
-    const navigate = useNavigate();
     const { deleteSubject } = context;
     const { sub } = props;
-    const handleDelete = async (sub) => {
+    const handleDelete = async () => {
         console.log("Deleting...")
         await deleteSubject(sub._id);
     }
-    const handleQns = (sub) => {
-        navigate(`/questions/${sub._id}`)
-    }
-    const handleMouseEnter = () => {
-        setIsHovered(true);
-    };
 
-    const handleMouseLeave = () => {
-        setIsHovered(false);
-    };
     return (
         <>
+            <div className="w-[39vw] ml-[3%] border border-slate-400 rounded-lg overflow-hidden mt-4" key={sub._id}>
+                <div className="px-4 py-5 sm:px-6 flex justify-between items-center relative">
+                    <div>
+                        <h3 className="text-lg leading-6 text-gray-800 font-bold">{sub.name}{sub.availability==="Active"?<span className={badgeVariants({ variant: "secondary" })}>{sub.availability}</span>:<span className={badgeVariants({ variant: "destructive" })}>{sub.availability}</span>}</h3>
+                        <p className="my-2 max-w-2xl text-sm text-gray-500">See subject information below</p>
+                        <Link to={`/questions/${sub._id}`} className='text-black '>
+                            <div className='bg-slate-400 py-2 w-[180px] rounded-sm border text-center hover:bg-[#c1d1d8] border-slate-600 '>
+                                Go to Test section
+                            </div>
+                        </Link>
+                    </div>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger> <span className='absolute top-5  right-20'><Link to={`/sub_stats/${sub._id}`}><i className="fa-solid fa-file-pen"></i> </Link></span></TooltipTrigger>
+                            <TooltipContent>
+                                <p>View Subject Stats</p>
+                            </TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
 
-            <div className={` bg-slate-300  w-1/5 ml-10 my-10 rounded-md border border-thin
-             h-40 hover:transition-all hover:scale-95 hover:duration-125 mx-auto   `}>
-                <HoverCard>
-                    <button
-                        className=' bg-slate-200 text-black hover:bg-slate-200 flex flex-col justify-between items-center  rounded-md h-full w-full ' onClick={() => handleQns(sub)}  >
-                        <div className='text-base'>
-                            <div className='mt-2'><b>Code: </b>{sub.code}</div>
-                            <div><b>Duration: </b>{sub.duration.hours}:{sub.duration.minutes}:{sub.duration.seconds}</div>
+                    <Dialog>
+                        <DialogTrigger><i className="fa-solid fa-pen-to-square absolute right-12 top-6"></i></DialogTrigger>
+                        <DialogContent>
+                            <DialogDescription>
+                                <EditSubject sub={sub} />
+                            </DialogDescription>
+                        </DialogContent>
+                    </Dialog>
+                    <span className="absolute right-5 top-5 cursor-pointer" onClick={handleDelete}><i className="fa-solid fa-trash"></i></span>
+
+                </div>
+                <div className="border-t border-gray-200">
+                    <dl>
+                        <div className="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Number of Questions</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">{sub.length}</dd>
                         </div>
-
-                        <h4 className='font-bold text-lg mb-10'>{sub.name}</h4>
-                        
-                        <HoverCardTrigger>
-                                <i onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} className="fa-solid fa-circle-info mt-5"></i>
-                        </HoverCardTrigger>
-
-                    </button>
-                    <HoverCardContent className=" mt-2 ml-20  bg-slate-300 ">
-                        <p > <pre>{sub.description}</pre></p>
-                        <Link to={`/sub_stats/${sub._id}`} className='border border-thin border-black rounded-sm bg-slate-200  ml-2 px-2'>Subject Stats</Link>
-                        <Link to={`/questions/${sub._id}`} className='border border-thin border-black rounded-sm bg-slate-200  ml-2 px-2'>View Questions</Link>
-                        <div className='flex justify-between items-center  w-full mt-2 '>
-                            <button onClick={() => handleDelete(sub)} className='mt-3 mr-0 mb-0 pb-0 pt-0 bg-slate-300 hover:bg-slate-200  text-black '  ><i className="fa-solid fa-trash  text-lg "></i></button>
-                            <Dialog>
-                                <DialogTrigger><i class="fa-solid fa-pen-to-square"></i>
-                                </DialogTrigger>
-                                <DialogContent>
-                                    <DialogHeader>
-                                        <DialogTitle>Edit Subject</DialogTitle>
-                                        <DialogDescription>
-                                          <EditSubject sub = {sub}/>
-                                        </DialogDescription>
-                                    </DialogHeader>
-                                </DialogContent>
-                            </Dialog>
-                           
+                        <div className="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Maximum Marks</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">{sub.max_marks}</dd>
                         </div>
-                    </HoverCardContent>
-                </HoverCard>
-            </div >
+                        <div className="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Subject Code</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">{sub.code}</dd>
+                        </div>
+                        <div className="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Duration</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:col-span-2">{sub.duration.hours}:{sub.duration.minutes}:{sub.duration.seconds}</dd>
+                        </div>
+                        <div className="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Guidelines</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:col-span-2"><pre>{sub.description ? sub.description : "lorem24k;lj' dslkgkndslgmasg a[kfnaf ag a'akd'g 'dofagm'agm a;gkmaglma a'gka'gmag a'dgl"}</pre></dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
         </>
+
     );
+
 }

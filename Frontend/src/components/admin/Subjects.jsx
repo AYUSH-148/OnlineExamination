@@ -6,10 +6,10 @@ import AddSub from './AddSub';
 
 
 export default function Subjects() {
-    let subjectList = [[],[],[],[]]
+    let subjectList = [[], [], [], []]
     const context = useContext(examContext);
     const navigate = useNavigate();
-    const { Sub, getallSubjects} = context;
+    const { Sub, getallSubjects } = context;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,50 +20,55 @@ export default function Subjects() {
             }
         };
         fetchData();
-    }, []);
-    Sub.map((sub)=>{
-        if(sub.code.startsWith("MnC")){
+    }, [Sub]);
+    Sub.map((sub) => {
+        if (sub.code.startsWith("MnC")) {
             subjectList[3].push(sub);
         }
-        else if(sub.code.startsWith("IT")){
+        else if (sub.code.startsWith("IT")) {
             subjectList[2].push(sub);
         }
-        else if(sub.code.startsWith("EEE")){
+        else if (sub.code.startsWith("EEE")) {
             subjectList[1].push(sub);
         }
         else {
             subjectList[0].push(sub);
         }
-        
+
     })
     return (
         <>
-        <AddSub/>
-        <hr />
-        <div className='pl-10 mt-20 text-2xl font-semibold'>Computer Science (Sc)</div>
-        <div className='flex flex-wrap' >
-            {subjectList[0].map((sub) => {
-                return <SubjectItem key={sub._id} sub={sub}  />;
-            })}
-        </div>
-        <div className='pl-10 mt-20 text-2xl font-semibold'>Electronics Enginnering (EEE)</div>
-        <div className='flex flex-wrap ' >
-            {subjectList[1].map((sub) => {
-                return <SubjectItem key={sub._id} sub={sub}  />;
-            })}
-        </div>
-        <div className='pl-10 mt-20 text-2xl font-semibold'>Insformation Technology(IT)</div>
-        <div className='flex flex-wrap' >
-            {subjectList[2].map((sub) => {
-                return <SubjectItem key={sub._id} sub={sub}  />;
-            })}
-        </div>
-        <div className='pl-10 mt-20 text-2xl font-semibold'>Mathematics And Computing(MnC)</div>
-        <div className='flex flex-wrap' >
-            {subjectList[3].map((sub) => {
-                return <SubjectItem key={sub._id} sub={sub}  />;
-            })}
-        </div>
+            <AddSub />
+            <hr />
+            <div className='ml-20'>
+                <div className='pl-10 mt-20 text-2xl font-semibold'>Computer Science (Sc)</div>
+                <div className='flex flex-wrap gap-x-3 ' >
+                    {subjectList[0].map((sub) => {
+                        return <SubjectItem key={sub._id} sub={sub} />;
+                    })}
+                </div>
+
+                <div className='pl-10 mt-20 text-2xl font-semibold'>Electronics Enginnering (EEE)</div>
+                <div className='flex flex-wrap  gap-x-3' >
+                    {subjectList[1].map((sub) => {
+                        return <SubjectItem key={sub._id} sub={sub} />;
+                    })}
+                </div>
+                <div className='pl-10 mt-20 text-2xl font-semibold'>Insformation Technology(IT)</div>
+                <div className='flex flex-wrap gap-x-3' >
+                    {subjectList[2].map((sub) => {
+                        return <SubjectItem key={sub._id} sub={sub} />;
+                    })}
+                </div>
+                <div className='pl-10 mt-20 text-2xl font-semibold'>Mathematics And Computing(MnC)</div>
+                <div className='flex flex-wrap gap-x-3' >
+                    {subjectList[3].map((sub) => {
+                        return <SubjectItem key={sub._id} sub={sub} />;
+                    })}
+                </div>
+
+            </div>
+
         </>
     );
 }

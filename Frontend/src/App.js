@@ -22,7 +22,11 @@ import Stds_marks from './components/admin/Stds_marks';
 import Students_list from './components/Students_list';
 import View_AdminProfile from './components/admin/View_AdminProfile';
 import Std_home from './components/student/Std_homePage';
-
+import Admin_home from './components/admin/Admin_home';
+import ChangePassword from './components/admin/ChangePassword';
+import StdChangePassword from './components/student/StdChangePassword';
+import Forgot_Password from './components/student/Forgot_Password';
+import Reset_password from './components/student/Reset_password';
 function App() {
   return (
     <>
@@ -46,6 +50,11 @@ function App() {
                       <Route exact path='/student_details' element={<Students_list/>} />
                       <Route exact path='/admin_profile' element={<View_AdminProfile/>} />
                       <Route exact path='/student_home/:id' element={<Std_home/>} />
+                      <Route exact path='/admin_home/:id' element={<Admin_home/>} />
+                      <Route exact path='/change_password' element={<ChangePassword />} />
+                      <Route exact path='/s_change_password' element={<StdChangePassword />} />
+                      <Route exact path='/forgot_password' element={<Forgot_Password />} />
+                      <Route exact path='/reset-password/:id/:token' element={<Reset_password />} />
                       
                     </Routes>
                     <Toaster />

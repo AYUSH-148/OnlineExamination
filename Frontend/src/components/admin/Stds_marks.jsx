@@ -10,7 +10,6 @@ import {
   TableRow,
 } from "../ui/table"
 import ExamContext from '../../context/exam/examContext';
-import Loader from '../Loader';
 
 
 const Stds_marks = () => {
@@ -23,10 +22,10 @@ const Stds_marks = () => {
   });
 
   const context = useContext(ExamContext);
-  const { marks, get_marks, getallStudents, Stds, getallSubjects, Sub } = context;
+  const { marks, get_marksAll, getallStudents, Stds, getallSubjects, Sub } = context;
   useEffect(() => {
     const fetchData = async () => {
-      await get_marks();
+      await get_marksAll();
       await getallStudents();
       await getallSubjects();
     };
@@ -57,6 +56,8 @@ const Stds_marks = () => {
             rollNo: std.rollNo,
             name: std.name,
             subject: sub.name,
+            length: sub.length,
+            max_marks:sub.max_marks,
             code: sub.code,
             count: mark.count_qns,
             score: mark.marks,
@@ -84,39 +85,42 @@ const Stds_marks = () => {
 
   return (
     <>
-      {tdata.cs.size >0 ||tdata.it.size > 0 ||tdata.eee.size >0 ||tdata.mnc.size > 0  ? (<><h1 className='pr-32 text-center my-10 text-2xl font-semibold'>Computer Science</h1><Table className="mt-5 ">
-        <TableCaption>Updated List of Students</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[140px]">RollNo.</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead className="w-[130px]">Subject</TableHead>
-            <TableHead className="w-[140px]">Correct answers ( / 5)</TableHead>
-            <TableHead className=" px-10 w-[120px] ">Score ( / 10)</TableHead>
-            <TableHead className="text-center w-[200px]">Time of Submission</TableHead>
-            <TableHead>Date of Submission</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {Array.from(tdata.cs).map((row, index) => (
-            <TableRow key={index}>
-              <TableCell className="font-medium w-[140px]">{row.rollNo}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell className="w-[130px]">{row.subject} <span> ({row.code})</span></TableCell>
-              <TableCell className="w-[140px]">{row.count}</TableCell>
-              <TableCell className=" px-10 w-[120px] ">{row.score}</TableCell>
-              <TableCell className="text-center w-[200px]">{row.tos}</TableCell>
-              <TableCell>{row.dos}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table><hr /><h1 className='pr-32 text-center my-10 text-2xl font-semibold'>Electroincs Engineering</h1><Table className="mt-5 ">
+      <>
+      {tdata.cs.size > 0 && <><h1 className='pr-32 text-center my-10 text-2xl font-semibold'>Computer Science</h1><Table className="mt-5 ">
           <TableCaption>Updated List of Students</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-[140px]">RollNo.</TableHead>
               <TableHead>Name</TableHead>
-              <TableHead className="w-[130px]">Subject</TableHead>
+              <TableHead className="w-[140px]">Subject</TableHead>
+              <TableHead className="w-[140px]">Correct answers </TableHead>
+              <TableHead className=" px-10 w-[120px] ">Score </TableHead>
+              <TableHead className="text-center w-[200px]">Time of Submission</TableHead>
+              <TableHead>Date of Submission</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {Array.from(tdata.cs).map((row, index) => (
+              <TableRow key={index}>
+                <TableCell className="font-medium w-[140px]">{row.rollNo}</TableCell>
+                <TableCell>{row.name}</TableCell>
+                <TableCell className="w-[130px]">{row.subject} <span> ({row.code})</span></TableCell>
+                <TableCell className="w-[140px]">{row.count} /{row.length}</TableCell>
+                <TableCell className=" px-10 w-[120px] ">{row.score}/{row.max_marks}</TableCell>
+                <TableCell className="text-center w-[200px]">{row.tos}</TableCell>
+                <TableCell>{row.dos}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table></>}
+      <hr />
+      {tdata.eee.size >0 &&<><h1 className='pr-32 text-center my-10 text-2xl font-semibold'>Electroincs Engineering</h1><Table className="mt-5 ">
+          <TableCaption>Updated List of Students</TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[140px]">RollNo.</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead className="w-[140px]">Subject</TableHead>
               <TableHead className="w-[140px]">Correct answers ( / 5)</TableHead>
               <TableHead className=" px-10 w-[120px] ">Score ( / 10)</TableHead>
               <TableHead className="text-center w-[200px]">Time of Submission</TableHead>
@@ -129,20 +133,22 @@ const Stds_marks = () => {
                 <TableCell className="font-medium w-[140px]">{row.rollNo}</TableCell>
                 <TableCell>{row.name}</TableCell>
                 <TableCell className="w-[130px]">{row.subject} <span> ({row.code})</span></TableCell>
-                <TableCell className="w-[140px]">{row.count}</TableCell>
-                <TableCell className=" px-10 w-[120px] ">{row.score}</TableCell>
+                <TableCell className="w-[140px]">{row.count}/{row.length}</TableCell>
+                <TableCell className=" px-10 w-[120px] ">{row.score}/{row.max_marks}</TableCell>
                 <TableCell className="text-center w-[200px]">{row.tos}</TableCell>
                 <TableCell>{row.dos}</TableCell>
               </TableRow>
             ))}
           </TableBody>
-        </Table><hr /><h1 className='pr-32 text-center my-10 text-2xl font-semibold'>Mathematics & Computing</h1><Table className="mt-5 ">
+        </Table></>}
+        <hr />
+        {tdata.mnc.size > 0  && <><h1 className='pr-32 text-center my-10 text-2xl font-semibold'>Mathematics & Computing</h1><Table className="mt-5 ">
           <TableCaption>Updated List of Students</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-[140px]">RollNo.</TableHead>
               <TableHead>Name</TableHead>
-              <TableHead className="w-[130px]">Subject</TableHead>
+              <TableHead className="w-[140px]">Subject</TableHead>
               <TableHead className="w-[140px]">Correct answers ( / 5)</TableHead>
               <TableHead className=" px-10 w-[120px] ">Score ( / 10)</TableHead>
               <TableHead className="text-center w-[200px]">Time of Submission</TableHead>
@@ -155,20 +161,22 @@ const Stds_marks = () => {
                 <TableCell className="font-medium w-[140px]">{row.rollNo}</TableCell>
                 <TableCell>{row.name}</TableCell>
                 <TableCell className="w-[130px]">{row.subject} <span> ({row.code})</span></TableCell>
-                <TableCell className="w-[140px]">{row.count}</TableCell>
-                <TableCell className=" px-10 w-[120px] ">{row.score}</TableCell>
+                <TableCell className="w-[140px]">{row.count}/{row.length}</TableCell>
+                <TableCell className=" px-10 w-[120px] ">{row.score}/{row.max_marks}</TableCell>
                 <TableCell className="text-center w-[200px]">{row.tos}</TableCell>
                 <TableCell>{row.dos}</TableCell>
               </TableRow>
             ))}
           </TableBody>
-        </Table><hr /><h1 className='pr-32 text-center my-10 text-2xl font-semibold'>Information Texhnology</h1><Table className="mt-5 ">
+        </Table></>}
+        <hr />
+        {tdata.it.size > 0 && <><h1 className='pr-32 text-center my-10 text-2xl font-semibold'>Information Texhnology</h1><Table className="mt-5 ">
           <TableCaption>Updated List of Students</TableCaption>
           <TableHeader>
             <TableRow>
               <TableHead className="w-[140px]">RollNo.</TableHead>
               <TableHead>Name</TableHead>
-              <TableHead className="w-[130px]">Subject</TableHead>
+              <TableHead className="w-[140px]">Subject</TableHead>
               <TableHead className="w-[140px]">Correct answers ( / 5)</TableHead>
               <TableHead className=" px-10 w-[120px] ">Score ( / 10)</TableHead>
               <TableHead className="text-center w-[200px]">Time of Submission</TableHead>
@@ -180,19 +188,19 @@ const Stds_marks = () => {
               <TableRow key={index}>
                 <TableCell className="font-medium w-[140px]">{row.rollNo}</TableCell>
                 <TableCell>{row.name}</TableCell>
-                <TableCell className="w-[130px]">{row.subject} <span> ({row.code})</span></TableCell>
-                <TableCell className="w-[140px]">{row.count}</TableCell>
-                <TableCell className=" px-10 w-[120px] ">{row.score}</TableCell>
+                <TableCell className="w-[140px]">{row.subject} <span> ({row.code})</span></TableCell>
+                <TableCell className="w-[140px]">{row.count}/{row.length}</TableCell>
+                <TableCell className=" px-10 w-[120px] ">{row.score}/{row.max_marks}</TableCell>
                 <TableCell className="text-center w-[200px]">{row.tos}</TableCell>
                 <TableCell>{row.dos}</TableCell>
               </TableRow>
             ))}
           </TableBody>
-        </Table>
-        </>) : <Loader />}
-      
+        </Table></>}
       </>
-  )
+
+    </>)
+  
 }
 
 export default Stds_marks

@@ -89,5 +89,17 @@ exports.get_marks = async(req,res)=>{
     }
     
 }
+exports.get_marksAllstds = async(req,res)=>{
+    try{
+        const marksRecords = await marks_db.find({ });
+        res.json(marksRecords);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send({
+        message: error.message || "Internal Server Error"
+      });
+    }
+    
+}
 
 

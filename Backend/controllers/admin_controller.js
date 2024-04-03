@@ -41,6 +41,7 @@ const data = {
         id:admin._id
     }
 }
+
 const auth_token=jwt.sign(data,JWT_SECRET);
 
 admin
@@ -137,6 +138,34 @@ exports.update_admin=(async(req,res)=>{
     }
     try {
         new_admin  = await admin_db.findOneAndUpdate({_id:req.params.id},{$set:data},{new:true})
+        res.status(200).json({"success":true,new_admin})   
+    } catch (error) {
+        res.status(500).send({
+            message: error.message || "Internal Server Error"
+        })       
+    }
+})
+exports.change_password=(async(req,res)=>{
+
+    const {   oldPassword , newPassword, confirmPassword} = req.body;
+    console.log( oldPassword , newPassword, confirmPassword)
+    const id = req.admin.id;
+    
+    const admin = await admin_db.findById(id);
+    const passwordCompare = await bcrypt.compare(oldPassword,admin.password);
+    if(!passwordCompare){
+        return res.status(400).json({error:"Please write correct password"});
+    }
+    if( oldPassword === newPassword){
+        return res.status(400).json({error:"Use different password"});
+
+    }
+    if(newPassword !==  confirmPassword){
+        return res.status(400).json({error:"Password do not match"});
+    }
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    try {
+        new_admin  = await admin_db.findOneAndUpdate({_id:id},{$set:{password: hashedPassword }},{new:true})
         res.status(200).json({"success":true,new_admin})   
     } catch (error) {
         res.status(500).send({

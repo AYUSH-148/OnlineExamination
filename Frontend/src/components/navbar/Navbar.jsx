@@ -21,7 +21,7 @@ const Navbar = () => {
 
   useEffect(() => {
         const fetchData = async () => {
-            if (localStorage.getItem('token')) {
+            if (localStorage.getItem('token') ) {
                 await getStudent();
             } else {
                 navigate("/student_login");
@@ -48,6 +48,7 @@ const Navbar = () => {
   }
   if (pathname.startsWith("/subjects/") || pathname.startsWith("/admin_profile") || pathname.startsWith("/student_details")) {
     showMarks = true;
+    
   }
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -67,7 +68,7 @@ const Navbar = () => {
       </div>
       <div className='flex justify-center items-center mr-16'>
 
-        <p className='cursor-pointer mx-5'><Link to="Admin_page">Home</Link></p>    {/*--------> Pending */}
+       {!OneStd.role === 'student' && <p className='cursor-pointer mx-5'><Link to="/admin_home">Home</Link></p>}    {/*--------> Pending */}
 
         <DropdownMenu >
           <DropdownMenuTrigger className="hover:bg-[#333] cursor-pointer hover:text-blue-100 mx-5 mb-1">Help ( <i className="fa-solid fa-info  "></i> )</DropdownMenuTrigger>
@@ -96,8 +97,8 @@ const Navbar = () => {
             <DropdownMenuLabel >User </DropdownMenuLabel>
             <DropdownMenuSeparator className="bg-black" />
             {showProfile && <DropdownMenuItem > <Link to={`/admin_profile`}>View Profile</Link></DropdownMenuItem>}
-            <DropdownMenuItem><Link to="" >Change Password </Link></DropdownMenuItem>
-            <DropdownMenuItem ><Link to="">Forgot Password?</Link></DropdownMenuItem>
+            <DropdownMenuItem>{OneStd.role === 'student'?<Link to="/s_change_password" >Change Password </Link>:<Link to="/change_password" >Change Password </Link>}</DropdownMenuItem>
+            {OneStd.role === 'student' &&<DropdownMenuItem ><Link to="/forgot_password">Forgot Password?</Link></DropdownMenuItem>}
           </DropdownMenuContent>
         </DropdownMenu>
 

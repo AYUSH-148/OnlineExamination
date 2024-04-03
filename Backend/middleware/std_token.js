@@ -12,7 +12,13 @@ const fetchstd=  (req,res,next)=>{
     }
     try {
         const data= jwt.verify(token,JWT_SECRET);
-        req.std = data.std;
+        if(data.std){
+            req.std = data.std;
+        }
+        else{
+            return null;
+        }
+        
         next()
     } catch (error) {
         res.status(401).send({error:"Please authencticate using a valid token"})

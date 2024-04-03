@@ -1,12 +1,13 @@
-import React,{useState,useContext} from 'react'
+import React, { useState, useContext } from 'react';
 import ExamContext from '../../context/exam/examContext';
-import { useToast } from "../ui/use-toast"
-import { ToastAction } from "../ui/toast"
+import { useToast } from "../ui/use-toast";
+import { ToastAction } from "../ui/toast";
+
 const EditSubject = (props) => {
-    const { toast } = useToast()
-    const context = useContext(ExamContext)
-    const {edit_subject} = context;
-    const {sub} = props;
+    const { toast } = useToast();
+    const context = useContext(ExamContext);
+    const { edit_subject } = context;
+    const { sub } = props;
     const [formData, setFormData] = useState({
         code: sub.code,
         sub_name: sub.name,
@@ -16,8 +17,9 @@ const EditSubject = (props) => {
             seconds: sub.duration.seconds
         },
         description: sub.description,
-        sub_status: sub.status,
-        availability: sub.availability
+        length: sub.length,
+        availability: sub.availability,
+        max_marks: sub.max_marks
     });
 
     const handleChange = (e) => {
@@ -27,23 +29,22 @@ const EditSubject = (props) => {
             [name]: value
         });
     };
-    const handleSubmit = async(e)=>{
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const { code, sub_name, duration, description, sub_status, availability } = formData;
-        await edit_subject(sub._id,code, sub_name, duration, description,sub_status,availability);
-        window.location.reload();
+        const { code, sub_name, duration, description, max_marks, length, availability } = formData;
+        await edit_subject(sub._id, code, sub_name, duration, description, max_marks, length, availability);
         toast({
-            title: "Suject updated!",
+            title: "Subject updated!",
             description: "Changes saved successfully.",
             action: <ToastAction altText="Try again">Try again</ToastAction>,
-        })
-      
-    }
+        });
+    };
 
     return (
-        <div className=" mx-auto" onSubmit={handleSubmit}>
-            <form className=" ">
-                <div className="mb-4">
+        <form className="shadow-md rounded w-full px-8 pb-8" onSubmit={handleSubmit}>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+                <div>
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="code">
                         Code
                     </label>
@@ -57,91 +58,96 @@ const EditSubject = (props) => {
                         onChange={handleChange}
                     />
                 </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-                        Name
+                <div>
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="sub_name">
+                        Subject
                     </label>
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="name"
+                        id="sub_name"
                         type="text"
-                        placeholder="Name"
+                        placeholder="Subject"
                         name="sub_name"
                         value={formData.sub_name}
                         onChange={handleChange}
                     />
                 </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
-                        Description
+            </div>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nosofqns">
+                        Nos of Questions
                     </label>
-                    <textarea
+                    <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="description"
-                        placeholder="Description"
-                        name="description"
-                        value={formData.description}
+                        id="nosofqns"
+                        type="number"
+                        placeholder="Nos of Questions"
+                        name="length"
+                        value={formData.length}
                         onChange={handleChange}
-                    ></textarea>
+                    />
                 </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="status">
-                        Status
+                <div>
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="max_marks">
+                        Max Marks
                     </label>
-                    <div className="flex">
-                        <label className="mr-4">
-                            <input
-                                type="radio"
-                                name="sub_status"
-                                value="No response (..Give test!)"
-                                checked={formData.sub_status === 'No response (..Give test!)'}
-                                onChange={handleChange}
-                            />
-                            <span className="ml-2">No response (..Give test!)</span>
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name="sub_status"
-                                value="Your response is saved."
-                                checked={formData.sub_status === 'Your response is saved.'}
-                                onChange={handleChange}
-                            />
-                            <span className="ml-2">Your response is saved.</span>
-                        </label>
-                    </div>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="max_marks"
+                        type="number"
+                        placeholder="Max Marks"
+                        name="max_marks"
+                        value={formData.max_marks}
+                        onChange={handleChange}
+                    />
                 </div>
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="availability">
-                        Availability
+            </div>
+            <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+                    Description
+                </label>
+                <textarea
+                    className="shadow appearance-none border rounded w-full h-32 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="description"
+                    placeholder="Description"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                ></textarea>
+            </div>
+            <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="availability">
+                    Availability
+                </label>
+                <div className="flex">
+                    <label className="mr-4">
+                        <input
+                            type="radio"
+                            name="availability"
+                            value="Active"
+                            checked={formData.availability === 'Active'}
+                            onChange={handleChange}
+                        />
+                        <span className="ml-2">Active</span>
                     </label>
-                    <div className="flex">
-                        <label className="mr-4">
-                            <input
-                                type="radio"
-                                name="availability"
-                                value="Active"
-                                checked={formData.availability === 'Active'}
-                                onChange={handleChange}
-                            />
-                            <span className="ml-2">Active</span>
-                        </label>
-                        <label>
-                            <input
-                                type="radio"
-                                name="availability"
-                                value="Expired"
-                                checked={formData.availability === 'Expired'}
-                                onChange={handleChange}
-                            />
-                            <span className="ml-2">Expired</span>
-                        </label>
-                    </div>
+                    <label>
+                        <input
+                            type="radio"
+                            name="availability"
+                            value="Expired"
+                            checked={formData.availability === 'Expired'}
+                            onChange={handleChange}
+                        />
+                        <span className="ml-2">Expired</span>
+                    </label>
                 </div>
-                <button type='submit' className='mt-2 bg-slate-200'>Save Changes</button>
-            </form>
-        </div>
-    )
-}
+            </div>
+            <button type='submit' className='mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>
+                Save Changes
+            </button>
+        </form>
+    );
+};
 
-export default EditSubject
+export default EditSubject;

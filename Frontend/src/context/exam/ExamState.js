@@ -44,12 +44,17 @@ const ExamState = (props) => {
                 },
                 body: JSON.stringify({ name,email,phoneNo, profession })
             });
+            const json = await response.json();
+            if(json.success){
+                console.log("changed!");
+            }
 
             
         } catch (error) {
             console.error('Error fetching admin:', error);
         }
     }
+   
     const getQns_perSub = async (id) => {
         try {
             if (id) {
@@ -376,7 +381,7 @@ const ExamState = (props) => {
         }
     }
 
-    const edit_subject = async (id,code, name, duration, description,status,availability) => {
+    const edit_subject = async (id,code, name, duration, description,max_marks,length, availability) => {
         try {
             const response = await fetch(`${host}/api/subjects/update_sub/${id}`, {
                 method: 'PUT',
@@ -384,7 +389,7 @@ const ExamState = (props) => {
                     'Content-Type': 'application/json',
                     'auth_token': localStorage.getItem('token')
                 },
-                body: JSON.stringify({ code, name, duration, description,status,availability })
+                body: JSON.stringify({ code, name, duration, description,max_marks,length, availability })
 
             });
             const json = await response.json(); 
@@ -395,8 +400,8 @@ const ExamState = (props) => {
                         Sub[index].name = json.sub.name;
                         Sub[index].duration = json.sub.duration;
                         Sub[index].description = json.sub.description;
-                        Sub[index].status = json.sub.status;
-                        Sub[index].availability = json.sub.availability;
+                        Sub[index].max_marks = json.sub.max_marks;
+                        Sub[index].length = json.sub.length;
                         break;
                     }
                 }
@@ -478,6 +483,27 @@ const ExamState = (props) => {
                 headers: {
                     'Content-Type': 'application/json',
                     'auth_token': localStorage.getItem('token')
+                },
+            });
+            if (!response.ok) {
+                throw new Error(`Failed to get marks of std_id `);
+            }
+            const json = await response.json(); 
+            setMarks(json)
+
+        }
+        catch (error) {
+            console.error('Error in getting  marks', error);
+
+        }
+
+    }
+    const get_marksAll = async () => {
+        try {
+            const response = await fetch(`${host}/api/marks/get_marksAll`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
             });
             if (!response.ok) {
@@ -610,7 +636,7 @@ const ExamState = (props) => {
             admin, getallAdmin,update_admin, Qns, getQns_perSub, createQn_perSub, deleteQn_perSub, updateQn_perSub,
             isAttempt, isAttempts, getallAttempts, getAttempt, createAttempt, changeAttempt,
             Stds, OneStd, getStudent, getallStudents,update_std ,
-            Sub,edit_subject, getallSubjects, get_subject, createSubject, deleteSubject, marks, getmarksPerSub, update_marks, get_marks, set_marks, Qnmarks,
+            Sub,edit_subject, getallSubjects, get_subject, createSubject, deleteSubject, marks, getmarksPerSub, update_marks, get_marks,get_marksAll, set_marks, Qnmarks,
             sub_marks, set_marksPerQn, get_marksPerStd, update_marksPerQn
         }}>
             {props.children}
