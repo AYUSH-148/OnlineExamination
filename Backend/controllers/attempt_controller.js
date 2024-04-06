@@ -2,9 +2,10 @@ const isAttempted_db = require('../models/isAttempted')
 const { body, validationResult } = require('express-validator');
 
 //------------------------------------------------------------------
-exports.get_all_attempts = (async (req, res) => {
+exports.getAttempts_per_std = (async (req, res) => {
     try {
-        let response = await isAttempted_db.find({});
+        const {id} = req.params.std_id;
+        let response = await isAttempted_db.find({student:id});
         res.json(response);       
     } catch (error) {
         res.status(500).send({

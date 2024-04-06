@@ -18,7 +18,6 @@ const Std_submarks = () => {
     const { getallSubjects, Sub, get_marks, marks } = context;
     const [data, setData] = useState([]);
     const [total,setTotal] = useState(0);
-    const [max_marks,setMax_marks] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,7 +25,7 @@ const Std_submarks = () => {
             await get_marks();
         };
         fetchData();
-    }, []);
+    }, [Sub, marks]);
     let counter = 0
     let total_marks = 0
     useEffect(() => {
@@ -50,7 +49,6 @@ const Std_submarks = () => {
             }
         });
         setTotal(counter);
-        setMax_marks(total_marks)
         // Update the data state
         setData(newData);
     }, [Sub, marks, id]);
@@ -62,9 +60,9 @@ const Std_submarks = () => {
                 <TableHeader>
                     <TableRow>
                         <TableHead >Subject</TableHead>
-                        <TableHead >Correct Attempts</TableHead>
                         <TableHead >Total (Questions)</TableHead>
-                        <TableHead >Max. Marks <bold>({max_marks})</bold> </TableHead>
+                        <TableHead >Correct Attempts</TableHead>
+                        <TableHead >Max. Marks  </TableHead>
                         <TableHead  className="text-auto">Score</TableHead>
                     </TableRow>
                 </TableHeader>
@@ -72,8 +70,9 @@ const Std_submarks = () => {
                     {data.map((item, index) => (
                         <TableRow key={index}>
                             <TableCell className="font-medium">{item.name}</TableCell>
-                            <TableCell >{item.correct_attempts}</TableCell>
                             <TableCell>{item.total_qns}</TableCell>
+
+                            <TableCell >{item.correct_attempts}</TableCell>
                             <TableCell>{item.max_marks}</TableCell>
                             <TableCell className="text-auto">{item.score}</TableCell>
                         </TableRow>
@@ -86,7 +85,8 @@ const Std_submarks = () => {
                     </TableRow>
                 </TableFooter>
             </Table>: 
-            <p className='text-xl my-10 ml-32 text-red-600 bg-slate-400 text-center ' > Give tests to see stats </p>
+            
+            <div className='text-3xl py-8  my-8 h-28 ml-14  rounded-md border-2 border-black text-center ' ><p> Give tests to see stats ...</p> </div>
         }
         </div>
 

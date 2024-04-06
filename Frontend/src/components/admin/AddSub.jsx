@@ -30,7 +30,7 @@ export default function AddSub() {
     return (
         <div className="w-[80vw] mx-auto flex justify-center items-start">
             {/* Remember Section */}
-            <div className="w-1/3 h-[60vh] p-6 bg-gray-100 rounded-md">
+            <div className="w-1/3 h-[60vh] p-6 bg-gray-200 rounded-md">
                 <h2 className="text-lg pt-12 font-semibold mb-4">Remember</h2>
                 <ol className="list-decimal ml-6 text-md flex flex-col gap-y-3">
                     <li>Subject code format: &lt;branch&gt;subject. Ex: Cs-MaIV</li>
@@ -41,8 +41,8 @@ export default function AddSub() {
             </div>
 
             {/* Form */}
-            <div className="w-2/3 bg-white shadow-md rounded-md p-6 ml-6 h-[60vh]">
-                <form onSubmit={handleSubmit} className="flex flex-wrap gap-x-7">
+            <div className="w-2/3  shadow-md rounded-md p-6 ml-6 h-[60vh] ">
+                <form onSubmit={handleSubmit} className="flex flex-wrap gap-x-7 ">
                     <div className="mb-4 w-full sm:w-auto">
                         <label htmlFor="code" className="block text-gray-700 text-sm font-semibold mb-2">Subject Code:</label>
                         <input

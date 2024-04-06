@@ -1,9 +1,13 @@
 import React,{useState} from 'react';
 import { useNavigate } from 'react-router';
+import { useToast } from "../ui/use-toast"
+import { ToastAction } from "../ui/toast"
 export default function Std_login() {
+
   const [rollNo, setRollNo] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { toast } = useToast()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,17 +23,26 @@ export default function Std_login() {
     // console.log(json.std._id)
 
     if (json.success) {
-     
+      toast({
+        title: "Success!",
+        description: "Logged in successfully",
+      })
       localStorage.setItem('token', json.auth_token); 
       navigate(`/student_home/${json.std._id}`);
     }
     else{
-      
-      console.log("Sorry cant login")
+      toast({
+        variant: "destructive",
+        title: "Invalid credentials!",
+        description: "There was a problem with your request.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      })
+     
     }
   };
 
   return (
+    
     <form onSubmit={handleSubmit}>
       
       <div>

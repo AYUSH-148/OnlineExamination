@@ -162,6 +162,9 @@ const ExamState = (props) => {
                     }
                 }
             }
+            else{
+                console.log("failed to update");
+            }
 
 
         } catch (error) {
@@ -170,9 +173,9 @@ const ExamState = (props) => {
     }
 
 
-    const getallAttempts = async () => {
+    const getAttemptsPerStd = async (std_id) => {
         try {
-            const response = await fetch(`${host}/api/isAttempted/get_all_attempts`, {
+            const response = await fetch(`${host}/api/isAttempted/getAttempts/${std_id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -185,20 +188,20 @@ const ExamState = (props) => {
         }
     }
 
-    const getAttempt = async (std_id, sub_id) => {
-        try {
-            const response = await fetch(`${host}/api/isAttempted/get_attempt/${std_id}/${sub_id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-            const json = await response.json();
-            setisAttempt(json)
-        } catch (error) {
-            console.error('Error fetching attempts:', error);
-        }
-    }
+    // const getAttempt = async (std_id, sub_id) => {
+    //     try {
+    //         const response = await fetch(`${host}/api/isAttempted/get_attempt/${std_id}/${sub_id}`, {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //         });
+    //         const json = await response.json();
+    //         setisAttempt(json)
+    //     } catch (error) {
+    //         console.error('Error fetching attempts:', error);
+    //     }
+    // }
 
     const createAttempt = async (std_id, sub_id, isAttempted) => {
         try {
@@ -230,7 +233,7 @@ const ExamState = (props) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ std_id, sub_id, isAttempted })
+                body: JSON.stringify({  isAttempted })
             });
             if (!response.ok) {
                 throw new Error(`Failed to change attempt with subject ID ${sub_id}`);
@@ -634,7 +637,7 @@ const ExamState = (props) => {
     return (
         <ExamContext.Provider value={{
             admin, getallAdmin,update_admin, Qns, getQns_perSub, createQn_perSub, deleteQn_perSub, updateQn_perSub,
-            isAttempt, isAttempts, getallAttempts, getAttempt, createAttempt, changeAttempt,
+            isAttempt, isAttempts, getAttemptsPerStd, createAttempt, changeAttempt,
             Stds, OneStd, getStudent, getallStudents,update_std ,
             Sub,edit_subject, getallSubjects, get_subject, createSubject, deleteSubject, marks, getmarksPerSub, update_marks, get_marks,get_marksAll, set_marks, Qnmarks,
             sub_marks, set_marksPerQn, get_marksPerStd, update_marksPerQn

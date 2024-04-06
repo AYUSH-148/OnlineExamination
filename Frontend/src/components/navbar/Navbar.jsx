@@ -62,7 +62,7 @@ const Navbar = () => {
 
   }
   return (
-    <nav className="navbar mb-5">
+    <nav className="navbar mb-5 z-50">
       <div className="navbar-header">
         <h1 className='text-xl'>OnlineExamination System</h1>
       </div>

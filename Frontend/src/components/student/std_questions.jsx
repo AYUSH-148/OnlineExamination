@@ -13,14 +13,14 @@ import Loader from '../Loader';
 export default function Std_questions() {
   const navigate = useNavigate();
   
-  const { subId } = useParams();
-  const { Qns, getQns_perSub, set_marks } = useContext(ExamContext);
+  const { subId,std_id } = useParams();
+  const { Qns, getQns_perSub, set_marks,createAttempt } = useContext(ExamContext);
   const { toast } = useToast()
   
   useEffect(() => {
     const fetchData = async () => {
       await getQns_perSub(subId);
-
+      await createAttempt(std_id,subId,true)
     };
     fetchData();
   }, [Qns]);

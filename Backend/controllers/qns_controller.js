@@ -73,7 +73,7 @@ exports.update_qn = ([
 ],async(req,res) => {
 
     const { qn,options,isAnswered = false,weight} = req.body;
-
+    console.log({qn,options,isAnswered,weight});
     const newqn = {};
 
     if(qn){
@@ -95,7 +95,7 @@ exports.update_qn = ([
     }
     try {
         question  = await qns_db.findOneAndUpdate({subject:req.params.sub_id, _id:req.params.qn_id},{$set:newqn},{new:true})
-        res.status(200).json({"success":true,question})   
+        res.status(200).json({success:true,question})   
     } catch (error) {
         res.status(500).send({
             message: error.message || "Internal Server Error"

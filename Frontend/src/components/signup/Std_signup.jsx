@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from "../ui/use-toast"
+import { ToastAction } from "../ui/toast"
 const StudentForm = () => {
+  const { toast } = useToast()
+
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [rollNo, setRollNo] = useState('');
@@ -21,11 +25,22 @@ const StudentForm = () => {
     const json = await response.json();
     // console.log(json)
     if (json.success) {
+      toast({
+        title: "Signing up!",
+        description: "Account created successfully.",
+      })
+      localStorage.setItem('token', json.auth_token);
+      navigate(`/admin_home/${json.admin._id}`);
       navigate("/student_login")
       localStorage.setItem('token', json.auth_token); 
     }
     else{
-      console.log("failed")
+      toast({
+        variant: "destructive",
+        title: "Invalid credentials!",
+        description: "Failed to create acount.",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      })
      
     }
   };

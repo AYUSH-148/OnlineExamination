@@ -31,20 +31,25 @@ export default function QuestionItem(props) {
     return ans;
   }
   return (
-    <div className="question-container ">
-      <button onClick={() => handleDelete(sub_id, qn._id)}>Delete</button>
-      <button onClick={() => handleEdit()}>Edit</button>
-
-      <div className="question mt-8 text-xl font-medium font-sans" >- {qn.qn}</div>
-      <ul className="px-10 list-disc">
-        <li className=" text-lg my-3">{qn.options[0].text} </li>
-        <li className=" text-lg my-3 ">{qn.options[1].text}</li>
-        <li className=" text-lg my-3 "> {qn.options[2].text} </li>
-        <li className=" text-lg my-3 "> {qn.options[3].text}</li>
-      </ul>
-      <hr />
-      <div className='text-xl mt-6 font-semibold'>Ans. {correctAns()}</div>
-
+    <div className="question-container border border-gray-300 rounded-lg p-4 mb-8">
+    <div className="flex justify-between ">
+        <div className=' text-lg font-bold border px-3 py-1 rounded border-black'>{qn.weight} marks</div>
+        <div>
+        <button onClick={() => handleDelete(sub_id, qn._id)} className="bg-red-500 hover:bg-red-600 text-white  py-2 w-20 rounded mr-2">Delete</button>
+        <button onClick={() => handleEdit()} className="bg-blue-500 hover:bg-blue-600 text-white  py-2 w-20 rounded">Edit</button>
+        </div>
+        
     </div>
+    
+    <div className="question mt-8 py-3 text-xl font-medium font-sans border-b-2 border-black">Q. {qn.qn}</div>
+    <ul className="px-10 list-disc">
+        <li className="text-lg my-3">{qn.options[0].text}</li>
+        <li className="text-lg my-3">{qn.options[1].text}</li>
+        <li className="text-lg my-3">{qn.options[2].text}</li>
+        <li className="text-lg my-3">{qn.options[3].text}</li>
+    </ul>
+    <div className='text-xl mt-6 font-semibold border-t-4 pt-2 '>Ans. {correctAns()}</div>
+</div>
+
   );
 }

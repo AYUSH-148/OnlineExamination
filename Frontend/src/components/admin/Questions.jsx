@@ -14,12 +14,12 @@ export default function Questions() {
       await getQns_perSub(id);
     };
     fetchData();
-  }, []);
+  }, [Qns]);
 
   return (
     <div>
       <AddQuestion id={id} />
-      <hr />
+     
       <div className='text-center my-20 text-3xl font-semibold'>Questions</div>
       {Qns.map((qn) => {
         return <QuestionItem key={qn._id} qn={qn} sub_id={id} />

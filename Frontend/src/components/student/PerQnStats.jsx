@@ -47,10 +47,10 @@ const PerQnStats = () => {
 
 
     return (
-        <div className='ml-16 w-[80vw] flex flex-wrap gap-5'>
+        <div className='ml-16 w-[80vw] flex flex-wrap gap-5  '>
             {Object.keys(data).length > 0 && Object.keys(data).map((subjectName, index) => (
                 <div key={index} className='w-1/4 overflow-x-hidden'>
-                    <Table>
+                    <Table >
                         <TableCaption><h2 className='font-semibold text-black'>{subjectName}</h2></TableCaption>
                         <TableHeader>
                             <TableRow>

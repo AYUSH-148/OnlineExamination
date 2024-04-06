@@ -28,7 +28,7 @@ const Std_QuestionItem = React.memo((props) => {
     setSelectedAnswer(event.target.value);
   };
   const handleSubmit = async (e) => {
-    
+    e.preventDefault();
     await updateQn_perSub(sub_id,qn._id,qn.qn,qn.options,true,qn.weight);
     console.log(selectedAnswer);
     if(selectedAnswer === 'true' ){
@@ -51,6 +51,7 @@ const Std_QuestionItem = React.memo((props) => {
       description: "",
     })
   };
+  
   return (
     <>
       {qn.weight!==undefined?<div className="question-container">
@@ -72,7 +73,7 @@ const Std_QuestionItem = React.memo((props) => {
           ))}
         </ul>
         <p>{qn.weight}</p>
-        <button type="button" className='bg-sky-700 ml-2 w-1/5 ' onClick={() => handleSubmit()}>
+        <button  className='bg-sky-700 ml-2 w-1/5 ' onClick={handleSubmit}>
           Save
         </button>
 
