@@ -37,7 +37,7 @@ exports.set_marksPerQn = async (req, res) => {
     
     try {
         const {marks,max_marks} = req.body;
-        // console.log({"marks/qn":marks})
+       
         const student = req.std.id;
         const subject = req.params.sub_id;
         const question = req.params.qn_id;
@@ -54,6 +54,7 @@ exports.set_marksPerQn = async (req, res) => {
             marks: marks,
             max_marks
         });
+      
         res.json({success:true,newResponse});
     } catch (error) {
         

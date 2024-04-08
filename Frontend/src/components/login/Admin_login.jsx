@@ -7,7 +7,7 @@ import { ToastAction } from "../ui/toast"
 
 export default function Admin_login() {
   const { toast } = useToast()
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -30,6 +30,7 @@ export default function Admin_login() {
       })
       localStorage.setItem('token', json.auth_token);
       navigate(`/admin_home/${json.admin._id}`);
+    
     }
     else {
       toast({
@@ -40,6 +41,7 @@ export default function Admin_login() {
       })
     }
   };
+  
 
 
   return (

@@ -73,7 +73,7 @@ exports.update_qn = ([
 ],async(req,res) => {
 
     const { qn,options,isAnswered = false,weight} = req.body;
-    console.log({qn,options,isAnswered,weight});
+    // console.log({qn,options,isAnswered,weight});
     const newqn = {};
 
     if(qn){

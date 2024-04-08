@@ -1,4 +1,4 @@
-import React, {  useContext,useState, useEffect } from 'react';
+import React, {  useContext,useState, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import { qnsActions } from '../../store/qns';
 import ExamContext from '../../context/exam/examContext';
@@ -28,29 +28,33 @@ const Std_QuestionItem = React.memo((props) => {
     setSelectedAnswer(event.target.value);
   };
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    await updateQn_perSub(sub_id,qn._id,qn.qn,qn.options,true,qn.weight);
-    console.log(selectedAnswer);
-    if(selectedAnswer === 'true' ){
-      console.log(qn.weight);
-      set_marksPerQn(sub_id,qn._id,qn.weight,qn.weight);
-    }
-    else{
-      set_marksPerQn(sub_id,qn._id,0,qn.weight);
-    }
-    if(selectedAnswer ==='true'){
-      dispatch(qnsActions.setAnsArray({ qn_id: qn._id, ans: selectedAnswer ,marks: qn.weight}));
-    }
-    else{
-      dispatch(qnsActions.setAnsArray({ qn_id: qn._id, ans: selectedAnswer ,marks: 0}));
+     // console.log("hello");
+     e.preventDefault();
+     await updateQn_perSub(sub_id,qn._id,qn.qn,qn.options,true,qn.weight);
+     console.log(selectedAnswer);
+     if(selectedAnswer === 'true' ){
+       console.log(qn.weight);
+       set_marksPerQn(sub_id,qn._id,qn.weight,qn.weight);
+     }
+     else{
+       set_marksPerQn(sub_id,qn._id,0,qn.weight);
+     }
+     if(selectedAnswer ==='true'){
+       dispatch(qnsActions.setAnsArray({ qn_id: qn._id, ans: selectedAnswer ,marks: qn.weight}));
+     }
+     else{
+       dispatch(qnsActions.setAnsArray({ qn_id: qn._id, ans: selectedAnswer ,marks: 0}));
+ 
+     }
+     toast({
+       title: "Answer Saved",
+       
+       description: "",
+     })
 
-    }
-    toast({
-      title: "Answer Saved",
-      
-      description: "",
-    })
+    // Your logic here
   };
+  
   
   return (
     <>

@@ -9,7 +9,7 @@ import {
 } from "../ui/dialog"
 import View_stdProfile from './View_stdProfile'
 
-const Home_Sidebar = () => {
+const HomeSidebar= () => {
 
   return (
     <div className='border px-8 border-l-4 border-slate-400  fixed top-[10vh] right-0 h-full overflow-y-auto'>
@@ -70,4 +70,4 @@ const Home_Sidebar = () => {
   )
 }
 
-export default Home_Sidebar
+export default HomeSidebar;

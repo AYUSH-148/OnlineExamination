@@ -5,17 +5,34 @@ import { useParams } from 'react-router-dom';
 import Loader from '../Loader';
 import { Link } from 'react-router-dom';
 import { badgeVariants } from "../ui/badge";
-import Home_Sidebar from './Home_Sidebar';
-import Std_submarks from './Std_submarks';
+import HomeSidebar from './HomeSidebar';
+import StdSubmarks from './StdSubmarks';
 import PerQnStats from './PerQnStats';
 
-const Std_home = () => {
+const StdHomePage = () => {
   const { id } = useParams();
   const context = useContext(ExamContext);
-  const { Sub, getallSubjects, OneStd, getStudent, getAttemptsPerStd, isAttempts } = context;
+  const { Sub, getallSubjects, OneStd, getStudent, getAttemptsPerStd, isAttempts, createAttempt } = context;
   const navigate = useNavigate();
   const [subjectList, setSubjectList] = useState([]);
-  const [subName, setSubName] = useState('');
+
+  const setSubList =() => {
+    const list = Sub.filter(sub => {
+      if (OneStd && OneStd.rollNo) {
+        if (OneStd.rollNo.includes("MnC") && sub.code.includes("MnC")) {
+          return true;
+        } else if (OneStd.rollNo.includes("IT") && sub.code.includes("IT")) {
+          return true;
+        } else if (OneStd.rollNo.includes("EEE") && sub.code.includes("EEE")) {
+          return true;
+        } else if (OneStd.rollNo.includes("Cs") && sub.code.includes("Cs")) {
+          return true;
+        }
+      }
+      return false;
+    });
+    setSubjectList(list);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,37 +45,19 @@ const Std_home = () => {
       }
     };
     fetchData();
-  }, []);
+  },[isAttempts]);
 
   useEffect(() => {
     setSubList();
-  }, [OneStd]);
+  },[Sub,OneStd]);
 
-  const setSubList = () => {
-    const attempts = isAttempts.filter(attempt => attempt.student === id);
-    const list = Sub.filter(sub => {
-      if (OneStd && OneStd.rollNo) {
-        if (OneStd.rollNo.includes("MnC") && sub.code.includes("MnC")) {
-          setSubName("Mathematics And Computing");
-          return true;
-        } else if (OneStd.rollNo.includes("IT") && sub.code.includes("IT")) {
-          setSubName("Information Technology");
-          return true;
-        } else if (OneStd.rollNo.includes("EEE") && sub.code.includes("EEE")) {
-          setSubName("Electronics");
-          return true;
-        } else if (OneStd.rollNo.includes("Cs") && sub.code.includes("Cs")) {
-          return true;
-        }
-      }
-      return false;
-    });
-    setSubjectList(list);
+  const handleClick = async (subId) => {
+    await createAttempt(id, subId, true);
   };
 
   return (
     <>
-      <Home_Sidebar />
+      <HomeSidebar />
       {subjectList.length > 0 ? (
         <div>
           {subjectList.map(sub => {
@@ -74,17 +73,19 @@ const Std_home = () => {
                     </h3>
                     <p className="mt-1 max-w-2xl text-sm text-gray-500">See subject information below</p>
                   </div>
-                  <Link to={`/${id}/std_questions/${sub._id}`} className='text-black mt-3 '>
-                    <span className='bg-slate-400 py-3 px-3 rounded-sm border hover:bg-[#c1d1d8] border-slate-600'>
-                      Give Test
-                    </span>
-                  </Link>
+                  {!isAttempted && (
+                    <Link to={`/${id}/std_questions/${sub._id}`} className='text-black mt-3'>
+                      <span onClick={() => handleClick(sub._id)} className='bg-slate-400 py-3 px-3 rounded-sm border hover:bg-[#c1d1d8] border-slate-600'>
+                        Start Test
+                      </span>
+                    </Link>
+                  )}
                 </div>
                 <div className="border-t border-gray-200">
                   <dl className="grid grid-cols-3 gap-x-6 gap-y-4 px-4 py-5">
                     <div className="col-span-1 border-r-2 border-b-2">
                       <dt className="text-lg font-medium text-gray-600 mt-2">Status</dt>
-                      <dd className="mt-1 text-lg text-gray-900">{isAttempted ? "Yes" : "No"} </dd>
+                      <dd className="mt-1 text-lg text-gray-900">{isAttempted ? <p className='text-green-500'>Your response is saved</p> : "Not attempted"} </dd>
                     </div>
                     <div className="col-span-1 border-r-2 border-b-2">
                       <dt className="text-lg font-medium text-gray-600 mt-2">Number of Questions</dt>
@@ -116,13 +117,14 @@ const Std_home = () => {
       <hr className='w-[70vw] ml-5 ' />
       <div className='mt-6'>
         <p className='text-3xl ml-14 font-semibold ' id="stats" >STATISTICS</p>
-        <Std_submarks />
+        <StdSubmarks Sub={Sub} id={id} />
       </div>
+      <hr className='w-[62%] ml-16' />
       <div>
-        <PerQnStats />
+        <PerQnStats Sub={Sub} id={id} />
       </div>
     </>
   );
 }
 
-export default Std_home;
+export default StdHomePage;

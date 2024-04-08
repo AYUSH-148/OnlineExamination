@@ -7,8 +7,9 @@ export default function Std_login() {
   const [rollNo, setRollNo] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { toast } = useToast()
-
+  const { toast } = useToast();
+  
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch("http://localhost:7000/api/students/std_login", {
@@ -29,6 +30,7 @@ export default function Std_login() {
       })
       localStorage.setItem('token', json.auth_token); 
       navigate(`/student_home/${json.std._id}`);
+      
     }
     else{
       toast({
@@ -40,6 +42,7 @@ export default function Std_login() {
      
     }
   };
+ 
 
   return (
     

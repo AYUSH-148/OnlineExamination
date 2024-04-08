@@ -1,26 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "../ui/table";
-import { useParams, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import ExamContext from '../../context/exam/examContext';
 
-const PerQnStats = () => {
+const PerQnStats = (props) => {
     const navigate = useNavigate();
-    const params = useParams();
-    const { id } = params;
+   
     const context = useContext(ExamContext);
-    const { get_marksPerStd, Qnmarks, getallSubjects, Sub } = context;
+    const {Sub,id} = props;
+    const { get_marksPerStd, Qnmarks} = context;
 
     useEffect(() => {
         const fetchData = async () => {
             if (localStorage.getItem('token')) {
-                await getallSubjects();
                 await get_marksPerStd();
             } else {
                 navigate("/student_login");
             }
         };
         fetchData();
-    }, []);
+    },[Qnmarks]);
 
     const [data, setData] = useState({});
     const [totalScores, setTotalScores] = useState({});
@@ -43,7 +42,7 @@ const PerQnStats = () => {
             setData(newData);
             setTotalScores(newTotalScores);
         }
-    }, [Sub, Qnmarks, id]);
+    }, [ Qnmarks ]);
 
 
     return (

@@ -4,8 +4,8 @@ const { body, validationResult } = require('express-validator');
 //------------------------------------------------------------------
 exports.getAttempts_per_std = (async (req, res) => {
     try {
-        const {id} = req.params.std_id;
-        let response = await isAttempted_db.find({student:id});
+        const {std_id} = req.params;
+        let response = await isAttempted_db.find({student:std_id});
         res.json(response);       
     } catch (error) {
         res.status(500).send({
@@ -47,6 +47,13 @@ exports.create_attempt = ([
         const {student,subject,isAttempted} = req.body;
         // Your code to create the question
         try {
+            let response = await isAttempted_db.findOne({
+                student,subject
+            });
+            if(response){
+                return null;
+            }
+
             const newResponse = await isAttempted_db.create({
                 student,subject,isAttempted
             });

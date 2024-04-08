@@ -150,7 +150,7 @@ const ExamState = (props) => {
                 throw new Error(`Failed to update note with ID ${qn_id}`);
             }
             const json = await response.json();
-            // console.log(json);
+            console.log(json);
             if (json.success == true) {
                 for (let index = 0; index < Qns.length; index++) {
                     if (Qns[index]._id === qn_id) {
@@ -182,6 +182,7 @@ const ExamState = (props) => {
                 },
             });
             const json = await response.json();
+            // console.log(json);
             setisAttempts(json);
         } catch (error) {
             console.error('Error fetching attempts:', error);
@@ -203,14 +204,14 @@ const ExamState = (props) => {
     //     }
     // }
 
-    const createAttempt = async (std_id, sub_id, isAttempted) => {
+    const createAttempt = async (student, subject, isAttempted) => {
         try {
             const response = await fetch(`${host}/api/isAttempted/create_attempt`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ std_id, sub_id, isAttempted })
+                body: JSON.stringify({ student, subject, isAttempted })
             });
             const json = await response.json();
             var new_att = {

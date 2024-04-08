@@ -166,6 +166,7 @@ exports.change_password=(async(req,res)=>{
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     try {
         new_admin  = await admin_db.findOneAndUpdate({_id:id},{$set:{password: hashedPassword }},{new:true})
+       
         res.status(200).json({"success":true,new_admin})   
     } catch (error) {
         res.status(500).send({

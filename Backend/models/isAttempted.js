@@ -7,6 +7,6 @@ const attemptedQuestionSchema = new mongoose.Schema({
   isAttempted: { type: Boolean, default: false },
 });
 
-const AttemptedQns = mongoose.model('attemptedQuestions', attemptedQuestionSchema);
+const AttemptedQns = mongoose.model('attemptedSubjects', attemptedQuestionSchema);
 module.exports = AttemptedQns;
 
