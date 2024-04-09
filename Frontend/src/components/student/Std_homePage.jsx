@@ -2,20 +2,21 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import ExamContext from '../../context/exam/examContext';
 import { useParams } from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import Loader from '../Loader';
 import { Link } from 'react-router-dom';
 import { badgeVariants } from "../ui/badge";
 import HomeSidebar from './HomeSidebar';
 import StdSubmarks from './StdSubmarks';
 import PerQnStats from './PerQnStats';
-
+import { qnsActions } from '../../store/qns';
 const StdHomePage = () => {
   const { id } = useParams();
   const context = useContext(ExamContext);
   const { Sub, getallSubjects, OneStd, getStudent, getAttemptsPerStd, isAttempts, createAttempt } = context;
   const navigate = useNavigate();
   const [subjectList, setSubjectList] = useState([]);
-
+  const dispatch = useDispatch();
   const setSubList =() => {
     const list = Sub.filter(sub => {
       if (OneStd && OneStd.rollNo) {
@@ -51,8 +52,9 @@ const StdHomePage = () => {
     setSubList();
   },[Sub,OneStd]);
 
-  const handleClick = async (subId) => {
-    await createAttempt(id, subId, true);
+  const handleClick = async (sub) => {
+    dispatch(qnsActions.setTimer(sub.duration));
+    await createAttempt(id, sub._id, true);
   };
 
   return (
@@ -74,8 +76,8 @@ const StdHomePage = () => {
                     <p className="mt-1 max-w-2xl text-sm text-gray-500">See subject information below</p>
                   </div>
                   {!isAttempted && (
-                    <Link to={`/${id}/std_questions/${sub._id}`} className='text-black mt-3'>
-                      <span onClick={() => handleClick(sub._id)} className='bg-slate-400 py-3 px-3 rounded-sm border hover:bg-[#c1d1d8] border-slate-600'>
+                    <Link to={`/std_questions/${id}/${sub._id}`} className='text-black mt-3'>
+                      <span onClick={() => handleClick(sub)} className='bg-slate-400 py-3 px-3 rounded-sm border hover:bg-[#c1d1d8] border-slate-600'>
                         Start Test
                       </span>
                     </Link>

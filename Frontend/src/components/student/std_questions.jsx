@@ -1,8 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import ExamContext from '../../context/exam/examContext';
-// import { useSelector} from 'react-redux';
-// import Counter from './counter';
-import '../../css/counter.css'
+import { useSelector} from 'react-redux';
+import Counter from './counter';
 import { useToast } from "../ui/use-toast"
 import Std_QuestionItem from './std_QuestionItem';
 import { useParams } from 'react-router-dom';
@@ -50,9 +49,11 @@ export default function Std_questions() {
   }
   const handleClick = async () => {
     checkQnAttempts();
-
+    
     if (disable === false) {
-      navigate(`/getResponse/${subId}`);
+      setTimeout(() => {
+        navigate(`/getResponse/${std_id}/${subId}`);
+      }, 3000); 
     }
     else {
       toast({
@@ -61,11 +62,11 @@ export default function Std_questions() {
       })
     }
   }
-  // const dur = useSelector((state) => state.showQns.counter);
+  const dur = useSelector((state) => state.showQns.counter);
   return (
     <>
-      <div>
-        {/* <span><Counter subId = {subId} dur = {dur}  /></span> */}
+      <div >
+        <div className='fixed right-4 bottom-7'><Counter subId = {subId} dur = {dur} std_id = {std_id} /></div>
 
         {Qns.length > 0 && subId !== null ? (
           Qns.map((qn) => (
@@ -74,9 +75,9 @@ export default function Std_questions() {
         ) : (
           <Loader />
         )}
-
+        <button className='border bg-sky-600 hover:opacity-90 border-black ml-[27%] w-[700px] rounded-sm mb-16 py-2 text-lg font-sans' onClick={handleClick} >SUBMIT <i className="fa-solid ml-2 fa-check"></i></button>
       </div>
-      <button onClick={handleClick} >Submit paper </button>
+     
     </>
   );
 }

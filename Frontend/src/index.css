@@ -87,6 +87,7 @@ body {
   font-family: ubuntu-medium ;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
 }
 
 code {

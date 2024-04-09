@@ -43,8 +43,8 @@ function App() {
                       <Route exact path='/subjects/:id' element={<Subjects/>} />
                       <Route exact path='/questions/:id' element={<Questions/>} />
                       <Route exact path='/:sub_id/edit_qn/:id' element={<EditQuestion/>} />
-                      <Route exact path='/:std_id/std_questions/:subId' element={<Std_questions/>} />
-                      <Route exact path='/getResponse/:subId' element={<GetResponse/>} />
+                      <Route exact path='/std_questions/:std_id/:subId' element={<Std_questions/>} />
+                      <Route exact path='/getResponse/:std_id/:subId' element={<GetResponse/>} />
                       <Route exact path='/sub_stats/:subId' element={<Subject_stats/>} />
                       <Route exact path='/marks_details' element={<Stds_marks/>} />
                       <Route exact path='/student_details' element={<Students_list/>} />

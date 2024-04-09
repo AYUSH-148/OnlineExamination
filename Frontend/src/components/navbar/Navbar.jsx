@@ -64,7 +64,7 @@ const Navbar = () => {
 
 
 
-  if (!localStorage.getItem('token') || pathname.startsWith('/student_details')) {
+  if (!localStorage.getItem('token') || pathname.startsWith('/student_details')||pathname.startsWith('/std_questions')) {
     showNavComp = false;
   }
   const handleLogout = () => {

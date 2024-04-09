@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 const Counter = (props) => {
-  //-----------
+  // -----------
   const style = {
     color: "f7f9fd"
   }
-  //-----------
+  // -----------
   const navigate = useNavigate();
   
-  const {dur,subId} = props;
+  const {dur,subId,std_id} = props;
+
   const [time, setTime] = useState({ hours:'..' ,minutes:'..', seconds:'..'});
 
   useEffect(() => {
@@ -54,12 +55,12 @@ const Counter = (props) => {
 
   const handleTimerEnd = () => {
     console.log('Timer ended!');
-    navigate(`/getMarks/${subId}`);
+    navigate(`/getResponse/${std_id}/${subId}`);
   };
   
   return (
-    <div className="digital-watch">
-      {time.hours ==='..'?<i class="fa-solid fa-clock " style={style}></i>:
+    <div className="  text-xl  border-black border-4 text-center py-1 px-2  rounded  text-black ">
+      {time.hours ==='..'?<i className="fa-solid fa-clock " style={style}></i>:
         <div>
           <span id="hours">{time.hours} </span>:
           <span id="minutes">{time.minutes} </span>:
@@ -67,6 +68,7 @@ const Counter = (props) => {
         </div>
       }
     </div>
+    // <div>hello</div>
   );
 };
 
