@@ -24,7 +24,7 @@ const Navbar = () => {
   let showLogout = true;
   let showStdList = true;
   let showMarks = false;
-  let showAdminHome = false;
+  // let showAdminHome = false;
   let showNavComp = true;
   let showStd_profile = false;
   let view_Stdstats = false;
@@ -64,7 +64,7 @@ const Navbar = () => {
 
 
 
-  if (!localStorage.getItem('token') || pathname.startsWith('/student_details')||pathname.startsWith('/std_questions')) {
+  if (!localStorage.getItem('token') || pathname.startsWith('/student_details')||pathname.startsWith('/std_questions')||pathname.startsWith('/student_login')||pathname.startsWith('/student_signup')) {
     showNavComp = false;
   }
   const handleLogout = () => {

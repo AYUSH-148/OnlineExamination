@@ -71,11 +71,11 @@ const StdHomePage = () => {
                 <div className="px-4 py-5 sm:px-6 flex justify-between">
                   <div>
                     <h3 className="text-2xl leading-6 text-gray-800 font-bold">
-                      {sub.name}<span className={badgeVariants({ variant: "secondary" })}>{sub.availability}</span>
+                      {sub.name}{sub.availability==="Active"?<span className={badgeVariants({ variant: "secondary" })}>{sub.availability}</span>:<span className={badgeVariants({ variant: "destructive" })}>{sub.availability}</span>}
                     </h3>
                     <p className="mt-1 max-w-2xl text-sm text-gray-500">See subject information below</p>
                   </div>
-                  {!isAttempted && (
+                  {!isAttempted && sub.availability==="Active" && (
                     <Link to={`/std_questions/${id}/${sub._id}`} className='text-black mt-3'>
                       <span onClick={() => handleClick(sub)} className='bg-slate-400 py-3 px-3 rounded-sm border hover:bg-[#c1d1d8] border-slate-600'>
                         Start Test
