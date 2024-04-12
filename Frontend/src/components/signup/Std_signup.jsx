@@ -27,7 +27,7 @@ const StudentForm = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!rollNoError && !passwordError ) {
+    if (!rollNoError && !passwordError) {
       const response = await fetch("http://localhost:7000/api/students/std_signup", {
         method: 'POST',
         headers: {
@@ -60,32 +60,32 @@ const StudentForm = () => {
       <div className='px-10 flex flex-col items-center border-r-2'>
         <h1 className="text-2xl font-semibold mb-1">Join the Student Community</h1>
         <p className="text-lg text-center mb-5">Access tests assigned by admin and view stats</p>
-        <div class="relative w-full h-[280px] mt-6 mr-6">
-          <div class="absolute inset-0  ">
-            <div class="absolute top-0 left-[46%]  ">
-              <i class="fa-solid fa-computer text-3xl"></i>
+        <div className="relative w-full h-[280px] mt-6 mr-6">
+          <div className="absolute inset-0  ">
+            <div className="absolute top-0 left-[46%]  ">
+              <i className="fa-solid fa-computer text-3xl"></i>
             </div>
-            <div class="absolute  bottom-[30%] right-[72%] transform ">
-              <i class="fa-solid fa-user text-3xl"></i>
+            <div className="absolute  bottom-[30%] right-[72%] transform ">
+              <i className="fa-solid fa-users text-3xl"></i>
             </div>
-            <div class="absolute bottom-[30%] left-[72%] ">
-              <i class="fa-solid fa-book-open text-3xl"></i>
+            <div className="absolute bottom-[30%] left-[72%] ">
+              <i className="fa-solid fa-book-open text-3xl"></i>
             </div>
-            <div class="absolute top-1/3 left-[45%]  right-full ">
-              <i class="fa-solid fa-shield-halved text-4xl"></i>
+            <div className="absolute top-1/3 left-[45%]  right-full ">
+              <i className="fa-solid fa-shield-halved text-4xl"></i>
             </div>
-            <div class="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <i class="fa-solid fa-arrow-down-long text-3xl"></i>
+            <div className="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <i className="fa-solid fa-arrow-down-long text-3xl"></i>
             </div>
-            <div class="absolute bottom-28 right-[60%]    rotate-45 ">
-              <i class="fa-solid fa-arrow-up-long text-3xl"></i>
+            <div className="absolute bottom-28 right-[60%]    rotate-45 ">
+              <i className="fa-solid fa-arrow-up-long text-3xl"></i>
             </div>
-            <div class="absolute bottom-28 left-[60%]    rotate-45 ">
-              <i class="fa-solid fa-arrow-left-long text-3xl"></i>
+            <div className="absolute bottom-28 left-[60%]    rotate-45 ">
+              <i className="fa-solid fa-arrow-left-long text-3xl"></i>
             </div>
 
-            <div class="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <i class="fa-solid fa-arrow-down-long text-3xl"></i>
+            <div className="absolute top-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <i className="fa-solid fa-arrow-down-long text-3xl"></i>
             </div>
           </div>
         </div>
@@ -95,14 +95,19 @@ const StudentForm = () => {
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>
             <label htmlFor="name" className="block text-lg font-medium text-gray-700">Username:</label>
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-              className="border border-gray-300 rounded-md mt-1 px-3 py-2 w-full"
-            />
+            <div className='relative mt-1'>
+              <i className="fa-regular fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+              <input
+                type="text"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                placeholder='Name'
+                className="pl-10 pr-3 py-2 w-full border border-gray-300 rounded-md"
+              />
+            </div>
+
           </div>
           <div>
             <label htmlFor="rollNo" className="block text-lg font-medium text-gray-700">Roll No:</label>
@@ -119,23 +124,31 @@ const StudentForm = () => {
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4 mb-4">
-          <div>
-            <label htmlFor="email" className="block text-lg font-medium text-gray-700">Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="border border-gray-300 rounded-md mt-1 px-3 py-2 w-full"
-            />
+          <div className="relative">
+            <label htmlFor="email" className="block text-lg font-medium text-gray-700">
+              Email:
+            </label>
+            <div className="relative mt-1">
+              <i className="fa-solid fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="pl-10 pr-3 py-2 w-full border border-gray-300 rounded-md"
+                placeholder="Enter your email"
+              />
+            </div>
           </div>
+
           <div>
             <label htmlFor="phoneNo" className="block text-lg font-medium text-gray-700">Phone No:</label>
             <input
               type="text"
               name="phoneNo"
               value={phoneNo}
+              placeholder='(optional)'
               onChange={(e) => setPhoneNo(e.target.value)}
               className="border border-gray-300 rounded-md mt-1 px-3 py-2 w-full"
             />
@@ -143,18 +156,22 @@ const StudentForm = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="password" className="block text-lg font-medium text-gray-700">Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePasswordChange}
-            required
+          <div className='relative mt-1'>
+            <i className="fa-solid fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+              placeholder='Choose strong password'
+              className={`border ${passwordError ? 'border-red-500' : 'border-gray-300'} pl-10 pr-3 py-2 w-full border border-gray-300 rounded-md`}
+            />
+          </div>
 
-            className={`border ${passwordError ? 'border-red-500' : 'border-gray-300'} rounded-md mt-1 px-3 py-2 w-full`}
-          />
           {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
         </div>
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 mb-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100 w-full">Submit</button>
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 mb-1 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100 w-full">Join and Save info</button>
         <Link to="/student_login" className='underline text-sky-700'>Already a member?</Link>
       </form>
 

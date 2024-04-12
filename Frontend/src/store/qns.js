@@ -33,7 +33,8 @@ const qnsSlice = createSlice({
             _id:newdata._id,
             subject:newdata.subject,
             qn:newdata.qn,
-            options:newdata.options
+            options:newdata.options,
+            weight: newdata.weight
         }   
       },
       setAnsArrayNull(state){

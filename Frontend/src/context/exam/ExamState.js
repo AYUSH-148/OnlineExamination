@@ -150,7 +150,6 @@ const ExamState = (props) => {
                 throw new Error(`Failed to update note with ID ${qn_id}`);
             }
             const json = await response.json();
-            console.log(json);
             if (json.success == true) {
                 for (let index = 0; index < Qns.length; index++) {
                     if (Qns[index]._id === qn_id) {

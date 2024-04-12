@@ -2,7 +2,15 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import ExamContext from '../context/exam/examContext';
 import Loader from './Loader';
-
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "../components/ui/table";
 const Students_list = () => {
     const context = useContext(ExamContext);
     const { getallStudents, Stds } = context;
@@ -54,114 +62,128 @@ const Students_list = () => {
     return (
         <>
             {tdata.cs.size > 0 || tdata.it.size > 0 || tdata.eee.size > 0 || tdata.mnc.size > 0 ? (<>
-                <div  className="bg-none mx-10 rounded-sm mb-16"><h1 className='pr-32 text-center py-7 text-2xl font-semibold underline'>Computer Science</h1>
-                    <hr />
+                <div className="bg-none mx-10 rounded-sm mb-16"><h1 className='pr-32 text-center mt-4 text-3xl font-semibold '>Computer Science</h1>
                     <div className='flex flex-wrap '>
-                        {Array.from(tdata.cs).map((row) => (
 
-                            <div className=" rounded-lg shadow-md p-6  my-8 md:w-1/4 mx-10 bg-slate-50">
-                                <div className="flex items-center justify-center mb-4">
-                                    <Avatar>
-                                        <AvatarImage src="https://github.com/shadcn.png" />
-                                        <AvatarFallback>CN</AvatarFallback>
-                                    </Avatar>
+                        <Table >
+                            <TableCaption>Updated List of Students</TableCaption>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead>Sr no.</TableHead>
+                                    <TableHead >Name</TableHead>
+                                    <TableHead>Roll No.</TableHead>
+                                    <TableHead >Mail </TableHead>
+                                    <TableHead>Contact no.</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {Array.from(tdata.cs).map((row, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell >{index + 1} </TableCell>
+                                        <TableCell >{row.name}</TableCell>
+                                        <TableCell>{row.rollNo}</TableCell>
+                                        <TableCell >{row.email}</TableCell>
+                                        <TableCell >{row.phoneNo}</TableCell>
 
-                                </div>
-                                <div >
-                                    <h2 className="text-2xl font-semibold text-gray-800 mb-2 ">{row.name}</h2>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Roll No:</b> {row.rollNo}</p>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Email: </b>{row.email}</p>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Address: </b>123 Main Street, City</p>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Phone No:</b> {row.phoneNo}</p>
-                                </div>
-                            </div>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
 
-
-                        ))}
                     </div>
                 </div>
-               
-                <br />
-                <div className="bg-none mx-10 rounded-sm mb-16"><h1 className=' py-7 pr-32 text-center  text-2xl font-semibold underline'>Information Technology</h1>
                 <hr />
+
+                <br />
+                <div className="bg-none mx-10 rounded-sm mb-16"><h1 className=' py-7 pr-32 text-center  text-3xl font-semibold '>Information Technology</h1>
                     <div className='flex flex-wrap bg-none '>
-                        {Array.from(tdata.it).map((row) => (
+                        <Table >
+                            <TableCaption>Updated List of Students</TableCaption>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead >Sr no.</TableHead>
+                                    <TableHead >Name</TableHead>
+                                    <TableHead>Roll No.</TableHead>
+                                    <TableHead >Mail </TableHead>
+                                    <TableHead>Contact no.</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {Array.from(tdata.it).map((row, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell >{index + 1} </TableCell>
+                                        <TableCell >{row.name}</TableCell>
+                                        <TableCell>{row.rollNo}</TableCell>
+                                        <TableCell >{row.email}</TableCell>
+                                        <TableCell >{row.phoneNo}</TableCell>
 
-                            <div className=" rounded-lg shadow-md p-6 mx-10 my-8 md:w-1/4 bg-slate-50">
-                                <div className="flex items-center justify-center mb-4">
-                                    <Avatar>
-                                        <AvatarImage src="https://github.com/shadcn.png" />
-                                        <AvatarFallback>CN</AvatarFallback>
-                                    </Avatar>
-
-                                </div>
-                                <div >
-                                    <h2 className="text-2xl font-semibold text-gray-800 mb-2 ">{row.name}</h2>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Roll No: </b>{row.rollNo}</p>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Email: </b>{row.email}</p>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Address:</b> 123 Main Street, City</p>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Phone No:</b> {row.phoneNo}</p>
-                                </div>
-                            </div>
-
-
-                        ))}
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
                     </div>
                 </div>
-               
-                <br />
-                <div className="bg-none  mx-10 rounded-sm mb-16"><h1 className=' py-7 pr-32 text-center text-2xl font-semibold underline' >Electronics Engneering</h1>
                 <hr />
+
+                <br />
+                <div className="bg-none  mx-10 rounded-sm mb-16"><h1 className=' py-7 pr-32 text-center text-3xl font-semibold ' >Electronics Engneering</h1>
                     <div className='flex flex-wrap bg-none '>
-                        {Array.from(tdata.eee).map((row) => (
+                        <Table >
+                            <TableCaption>Updated List of Students</TableCaption>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead >Sr no.</TableHead>
+                                    <TableHead >Name</TableHead>
+                                    <TableHead>Roll No.</TableHead>
+                                    <TableHead >Mail </TableHead>
+                                    <TableHead>Contact no.</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {Array.from(tdata.eee).map((row, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell >{index + 1} </TableCell>
+                                        <TableCell >{row.name}</TableCell>
+                                        <TableCell>{row.rollNo}</TableCell>
+                                        <TableCell >{row.email}</TableCell>
+                                        <TableCell >{row.phoneNo}</TableCell>
 
-                            <div className=" rounded-lg shadow-md p-6 mx-10 my-8 md:w-1/4 bg-slate-50">
-                                <div className="flex items-center justify-center mb-4">
-                                    <Avatar>
-                                        <AvatarImage src="https://github.com/shadcn.png" />
-                                        <AvatarFallback>CN</AvatarFallback>
-                                    </Avatar>
-
-                                </div>
-                                <div >
-                                    <h2 className="text-2xl font-semibold text-gray-800 mb-2 ">{row.name}</h2>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Roll No: </b>{row.rollNo}</p>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Email:</b> {row.email}</p>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Address: </b>123 Main Street, City</p>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Phone No:</b> {row.phoneNo}</p>
-                                </div>
-                            </div>
-
-
-                        ))}
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
                     </div>
                 </div>
-               
-                <br />
-                <div className="bg-none  mx-10 rounded-sm mb-16"><h1 className=' py-7 pr-32 text-center  text-2xl font-semibold underline'>Mathematics & Computing</h1>
                 <hr />
+
+                <br />
+                <div className="bg-none  mx-10 rounded-sm mb-16"><h1 className=' py-7 pr-32 text-center  text-3xl font-semibold '>Mathematics & Computing</h1>
+               
                     <div className=' flex flex-wrap '>
-                        {Array.from(tdata.mnc).map((row) => (
+                        <Table >
+                            <TableCaption>Updated List of Students</TableCaption>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead >Sr no.</TableHead>
+                                    <TableHead >Name</TableHead>
+                                    <TableHead>Roll No.</TableHead>
+                                    <TableHead >Mail </TableHead>
+                                    <TableHead>Contact no.</TableHead>
+                                </TableRow>
+                            </TableHeader>
+                            <TableBody>
+                                {Array.from(tdata.mnc).map((row, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell >{index + 1} </TableCell>
+                                        <TableCell >{row.name}</TableCell>
+                                        <TableCell>{row.rollNo}</TableCell>
+                                        <TableCell >{row.email}</TableCell>
+                                        <TableCell >{row.phoneNo}</TableCell>
 
-                            <div className=" rounded-lg shadow-md p-6 mx-10 my-8 md:w-1/4 bg-slate-50">
-                                <div className="flex items-center justify-center mb-4">
-                                    <Avatar>
-                                        <AvatarImage src="https://github.com/shadcn.png" />
-                                        <AvatarFallback>CN</AvatarFallback>
-                                    </Avatar>
-
-                                </div>
-                                <div >
-                                    <h2 className="text-2xl font-semibold text-gray-800 mb-2 ">{row.name}</h2>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Roll No:</b> {row.rollNo}</p>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Email: </b>{row.email}</p>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Address:</b> 123 Main Street, City</p>
-                                    <p className="text-lg font-semibold text-gray-600 mb-2"><b>Phone No:</b> {row.phoneNo}</p>
-                                </div>
-                            </div>
-
-
-                        ))}
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
                     </div>
                 </div></>)
                 : <Loader />}

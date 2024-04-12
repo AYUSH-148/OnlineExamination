@@ -64,7 +64,7 @@ export default function Std_login() {
       <h1 className="text-3xl font-semibold mb-4">Welcome back</h1>
 
       <p className="text-lg text-center mb-8">Login to see stats and give tests   </p>
-      
+
       <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
         <div className="mb-4">
           <label htmlFor="rollNo" className="block text-sm font-medium text-gray-700">Roll No:</label>
@@ -81,14 +81,19 @@ export default function Std_login() {
         </div>
         <div className="mb-6">
           <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handlePasswordChange}
-            className={`border ${passwordError ? 'border-red-500' : 'border-gray-300'} rounded-md mt-1 px-3 py-2 w-full`}
-            required
-          />
+          <div className='relative mt-1'>
+            <i className="fa-solid fa-lock absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <input
+              type="password"
+              name="password"
+              value={password}
+              onChange={handlePasswordChange}
+              className={`border ${passwordError ? 'border-red-500' : 'border-gray-300'} pl-10 pr-3 py-2 w-full border border-gray-300 rounded-md`}
+
+              required
+            />
+          </div>
+
           {passwordError && <p className="text-red-500 text-xs mt-1">{passwordError}</p>}
         </div>
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100 w-full">Verify</button>

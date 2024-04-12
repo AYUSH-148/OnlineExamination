@@ -19,12 +19,7 @@ const Admin_home = () => {
                 <button className="bg-gray-500 hover:bg-gray-600 mx-2 text-white py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500">
                   <Link to="/student_details"> View Participation</Link>  
                 </button>
-                {/* <ul className="list-disc ml-7 mt-7  text-left roboto-regular  px-3 py-3">
-                    <li>Add, modify, remove subjects and questions.</li>
-                    <li>View subject-wise report.</li>
-                    <li>See participants info.</li>
-                    <li>Analyze the performance of participants.</li>
-                </ul> */}
+                
             </div>
         </div>
     );

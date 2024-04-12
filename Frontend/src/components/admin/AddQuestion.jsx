@@ -29,7 +29,7 @@ export default function AddQuestion(props) {
             title: "Success!",
             description: "Question is included",
         });
-       
+
     }
     const handleClick = () => {
         setQn('');
@@ -39,13 +39,13 @@ export default function AddQuestion(props) {
         setOpt4('');
         setWeight(0);
     }
-    
-    
+
+
     return (
         <>
             <form onSubmit={handleSubmit} className="flex mx-auto w-2/5 relative flex-col items-center border border-gray-300 rounded-lg p-4 shadow-lg">
                 <i onClick={handleClick} className="fa-solid text-lg fa-rotate-right cursor-pointer text-gray-200 absolute top-1 right-2"></i>
-                <textarea className='w-full max-w-md px-3 py-2 rounded placeholder-gray-500 border border-gray-300 mt-2 focus:outline-none focus:border-gray-500' type="text" id="question" name="question" value={Qn} onChange={(e) => setQn(e.target.value)} placeholder="Question" required />
+                <textarea className='w-full max-w-md mb-3 px-3 py-2 rounded placeholder-gray-500 border-b-2 border-gray-300 mt-2 focus:outline-none focus:border-gray-500' type="text" id="question" name="question" value={Qn} onChange={(e) => setQn(e.target.value)} placeholder="Question" required />
 
                 <input className='w-full max-w-md px-3 py-2 rounded placeholder-gray-500 border border-gray-300 mt-2 focus:outline-none focus:border-gray-500' type="text" id="option1" name="option1" value={Opt1} onChange={(e) => setOpt1(e.target.value)} placeholder="Option 1" required />
 
@@ -55,28 +55,34 @@ export default function AddQuestion(props) {
 
                 <input className='w-full max-w-md px-3 py-2 rounded placeholder-gray-500 border border-gray-300 mt-2 focus:outline-none focus:border-gray-500' type="text" id="option4" name="option4" value={Opt4} onChange={(e) => setOpt4(e.target.value)} placeholder="Option 4" required />
 
-                <select className='w-full max-w-md px-3 py-2 rounded border border-gray-300 mt-2 focus:outline-none focus:border-gray-500' id="correctAnswer" name="correctAnswer" placeholder="Correct option" required>
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
-                    <option value="option4">Option 4</option>
-                </select>
-
-                <div className="flex items-center mt-2 w-full max-w-md px-3 py-2">
-                    <label htmlFor="weight" className="block text-gray-700 mr-4">Weight (marks):</label>
-                    <input
-                        className='w-full placeholder-gray-500 border border-gray-300 px-3 py-2 rounded focus:outline-none focus:border-gray-500'
-                        type="number"
-                        id="weight"
-                        name="weight"
-                        value={weight}
-                        onChange={(e) => setWeight(e.target.value)}
-                        required
-                        step={2}
-                    />
+                <div className='relative mt-1 w-full max-w-md'>
+                    <i className="fa-solid fa-check absolute left-3 top-[64%] transform -translate-y-1/2 text-gray-400"></i>
+                    <select className='w-full max-w-md pl-10 pr-3 py-2 rounded border border-gray-300 mt-4 focus:outline-none focus:border-gray-500' id="correctAnswer" name="correctAnswer" required>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <option value="option3">Option 3</option>
+                        <option value="option4">Option 4</option>
+                    </select>
                 </div>
 
-                <button type="submit" className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 w-full max-w-md rounded mt-4'>Add Question</button>
+
+                <div className="relative mt-1 w-full max-w-md">
+                        <span htmlFor="weight" className="absolute left-3 top-[63%] transform -translate-y-1/2 text-gray-400  w-[80px] text-lg">Weight: </span>
+                        <input
+                            className='w-full max-w-md pl-20 pr-3 py-2 rounded border border-gray-300 mt-4 focus:outline-none focus:border-gray-500'
+                            type="number"
+                            id="weight"
+                            name="weight"
+                            value={weight}
+                            onChange={(e) => setWeight(e.target.value)}
+                            required
+                            step={2}
+                        />
+                </div>
+
+             
+
+                <button type="submit" className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 w-full max-w-md rounded mt-4 mb-4'>Add Question</button>
             </form>
 
 
