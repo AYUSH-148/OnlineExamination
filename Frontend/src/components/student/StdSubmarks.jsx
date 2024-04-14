@@ -84,7 +84,7 @@ const StdSubmarks= (props) => {
                     </TableFooter>
                 </Table>
             ) : (
-                <div className='text-3xl py-8  my-8 h-28 ml-14  rounded-md border-2 border-black text-center'>
+                <div className='text-3xl text-white py-8 bg-gray-500 my-8 h-28 ml-14  rounded-md border-2 border-black text-center'>
                     <p>Give tests to see stats ...</p>
                 </div>
             )}

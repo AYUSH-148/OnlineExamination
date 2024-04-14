@@ -16,7 +16,7 @@ const StudentForm = () => {
   const handleRollNoChange = (e) => {
     const inputValue = e.target.value;
     setRollNo(inputValue);
-    const isValid = /^20\d{2}[A-Za-z]{2}\d{3}$/.test(inputValue);
+    const isValid = /^20\d{2}[A-Za-z]{2,3}\d{3}$/.test(inputValue);
     setRollNoError(isValid ? '' : 'Match Rollno format 20XXDEPTXXX');
   };
   const handlePasswordChange = (e) => {
@@ -115,7 +115,7 @@ const StudentForm = () => {
               type="text"
               name="rollNo"
               value={rollNo}
-              placeholder='eg. 2022IT100'
+              placeholder='Ex. 2022IT100'
               onChange={handleRollNoChange}
               required
               className={`border ${rollNoError ? 'border-red-500' : 'border-gray-300'} rounded-md mt-1 px-3 py-2 w-full`}

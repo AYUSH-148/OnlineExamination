@@ -1,6 +1,6 @@
 import './css/navbar.css';
 import './css/question.css';
-import './css/subject.css';
+import './css/R_addsub.css';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';

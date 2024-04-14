@@ -28,7 +28,7 @@ export default function SubjectItem(props) {
 
     return (
         <>
-            <div className="w-[39vw] ml-[3%] border border-slate-400 rounded-lg overflow-hidden mt-4" key={sub._id}>
+            <div className="w-[39vw] resp_subitem ml-[3%] border border-slate-400 rounded-lg overflow-hidden mt-4" key={sub._id}>
                 <div className="px-4 py-5 sm:px-6 flex justify-between items-center relative">
                     <div>
                         <h3 className="text-lg leading-6 text-gray-800 font-bold">
@@ -49,9 +49,9 @@ export default function SubjectItem(props) {
                     <TooltipProvider>
                         <Tooltip>
                             <TooltipTrigger>
-                                <span className='absolute top-5  right-20'>
+                                <span className='absolute top-5  right-20 resp_stats'>
                                     <Link to={`/sub_stats/${sub._id}`}>
-                                        <i className="fa-solid fa-file-pen"></i>
+                                        <i className="fa-solid fa-file-pen "></i>
                                     </Link>
                                 </span>
                             </TooltipTrigger>
@@ -62,7 +62,7 @@ export default function SubjectItem(props) {
                     </TooltipProvider>
                     <Dialog>
                         <DialogTrigger>
-                            <i className="fa-solid fa-pen-to-square absolute right-12 top-6"></i>
+                            <i className="fa-solid fa-pen-to-square absolute right-12 top-6 resp_edit"></i>
                         </DialogTrigger>
                         <DialogContent>
                             <DialogDescription>
@@ -99,6 +99,37 @@ export default function SubjectItem(props) {
                     </div>
                 </div>
             </div>
+            <style jsx>{`
+            @media (max-width: 995px)  {
+                .resp_subitem{
+                    width:44vw;
+                }
+            }
+            @media (max-width: 900px and min-width: 830px) {
+                .resp_stats{
+                    top: 45px;
+                    right: 15px;
+                }
+                .resp_edit{
+                    top:75px;
+                    right: 18px;
+                }
+            }
+       
+            @media (max-width: 830px) {
+                .resp_subitem{
+                    width:80%;
+                }
+            }
+            @media (max-width: 550px) {
+                .resp_subitem{
+                    width:90%;
+                }
+            }
+            
+            `}
+            </style>
+
 
         </>
 
