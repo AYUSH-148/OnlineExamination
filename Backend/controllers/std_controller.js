@@ -281,4 +281,23 @@ exports.reset_password = (async (req, res) => {
       res.json({ status: "Something Went Wrong" });
     }
 })
+exports.check_login= (async (req, res) => {
+    
+    const id = req.std.id;
+    try {
+        const std = await std_db.findById(id).select("-password");
+        if(std){
+            return res.json({ success:true,std});
+        }
+        else{
+            return res.json({success: false});
+        }
+    } catch (error) {
+            return res.status(400).json({ success:false,error: "User is not logged in" }); 
+    }
+   
+    
+})
+
+
 

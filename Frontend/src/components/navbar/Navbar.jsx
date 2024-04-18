@@ -1,6 +1,6 @@
-import React from 'react';
-import { useNavigate, useLocation, Link, useParams } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import '../../css/navbar.css';
 import View_stdProfile from '../student/View_stdProfile';
 import {
   DropdownMenu,
@@ -20,6 +20,8 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   let showAdminProfile = true;
   let showLogout = true;
   let showStdList = true;
@@ -77,12 +79,18 @@ const Navbar = () => {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   }
+  const handleBurger = ()=>{
+    setIsMenuOpen(!isMenuOpen);
+  }
   return (
-    <nav className="navbar mb-5 z-50">
+    <>
+   <nav className={`mb-5 z-50 bg-gray-900 flex px-5 py-4 text-white sticky top-0 ${isMenuOpen ? 'flex-col ok justify-around transition-all duration-500' : 'items-center justify-between'}`}>
+
+
       <div className="navbar-header">
-        <h1 className='text-xl'>OnlineExamination System</h1>
+        <h1 className='text-xl mb-3'>OnlineExamination System</h1>
       </div>
-      {showNavComp && <div className='flex justify-center items-center mr-16'>
+      {showNavComp && <div className={`flex  ${isMenuOpen ? 'flex-col items-start gap-y-4 visible' : ' justify-center items-center  mr-16 navcomp '} `}>
 
         {/* {showAdminHome && <p className='cursor-pointer mx-5'><Link to={`/admin_home/${id}`}>Home</Link></p>}    --------> Pending */}
 
@@ -118,11 +126,36 @@ const Navbar = () => {
             {forgetPass && <DropdownMenuItem ><Link to="/forgot_password">Forgot Password?</Link></DropdownMenuItem>}
           </DropdownMenuContent>
         </DropdownMenu>
-
+       
 
       </div>}
-
+      <i className="fa-solid fa-bars text-xl hidden absolute top-4 right-5" onClick={handleBurger}></i>
     </nav>
+    
+    <style jsx>
+      {`
+      
+            @media (max-width: 1030px){
+                .hidden{
+                  display: inline;
+                }
+                .navcomp{
+                  display: none;
+                }
+            }
+            @media (min-width: 1030px){
+              
+               .justify-around{
+                justify-content: space-between;
+               }
+               nav{
+                  height:60px;
+               }
+            }
+      `}
+          
+    </style>
+    </>
   );
 };
 

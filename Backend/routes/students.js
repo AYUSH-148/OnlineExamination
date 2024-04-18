@@ -11,6 +11,7 @@ route.get('/get_all_stds',controller.get_all_stds);
 route.patch('/s_change_password',fetchstd,controller.change_password);
 route.post('/forgot_password',controller.forgot_password);
 route.patch('/reset-password/:id/:token',controller.reset_password);
+route.get('/check-login',fetchstd,controller.check_login);
 
 
 module.exports = route;

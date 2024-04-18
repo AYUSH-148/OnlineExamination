@@ -59,8 +59,10 @@ const StdHomePage = () => {
 
   return (
     <>
-      <HomeSidebar />
+     
       {subjectList.length > 0 ? (
+        <>
+         <HomeSidebar subjectList = {subjectList} />
         <div>
           {subjectList.map(sub => {
             const studentAttempts = isAttempts.filter(attempt => attempt.student === id && attempt.subject === sub._id);
@@ -115,6 +117,7 @@ const StdHomePage = () => {
             );
           })}
         </div>
+        </>
       ) : <Loader />}
       <hr className='w-[70vw] ml-5 ' />
       <div className='mt-6'>

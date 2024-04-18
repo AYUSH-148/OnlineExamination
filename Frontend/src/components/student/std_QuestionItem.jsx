@@ -52,7 +52,6 @@ const Std_QuestionItem = React.memo((props) => {
       description: "",
     })
 
-    // Your logic here
   };
 
 

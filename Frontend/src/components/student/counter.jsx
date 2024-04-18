@@ -68,7 +68,7 @@ const Counter = (props) => {
         </div>
       }
     </div>
-    // <div>hello</div>
+    
   );
 };
 

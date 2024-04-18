@@ -35,14 +35,14 @@ export default function GetResponse() {
     const currentTime = new Date().toLocaleTimeString();
     return (
         <>
-            <div className='flex  justify-around mt-20  items-center border border-black'>
+            <div className='flex w-1/2 mx-auto gap-x-44 mt-20  items-center '>
                 <div className='text-center text-4xl mt-10 font-bold  mb-8'> Your response is recorded!</div>
                 <Link to={`/student_home/${std_id}`}>
                     <i className="fa-solid fa-house text-2xl mt-2"></i>
                 </Link>
             </div>
 
-            <div className='mt-20 ml-[18%] text-lg '>
+            <div className='mt-20 ml-[25%] text-lg '>
                 <p><span className='font-semibold'>Date of Submission: </span>  {currentDate}</p>
                 <p><span className='font-semibold'> Time of Submission:</span> {currentTime}</p>
                 <p className='mt-4'>Thanks for attempting test! <i className="fa-solid fa-face-smile" style={{color: "#FFD43B"}}></i></p>

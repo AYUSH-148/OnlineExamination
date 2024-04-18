@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useToast } from "../ui/use-toast"
 import { ToastAction } from "../ui/toast"
@@ -10,6 +10,29 @@ export default function Std_login() {
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  useEffect(() => {
+    const checkLoggedIn = async () => {
+      if (localStorage.getItem('token')) {
+        try {
+          const response = await fetch("http://localhost:7000/api/students/check-login", {
+            method: 'GET',
+            headers: {
+              'auth_token': localStorage.getItem('token'),
+            },
+          });
+          const json = await response.json();
+          if (json.success) {
+            navigate(`/student_home/${json.std._id}`);
+          }
+        } catch (error) {
+          console.error("Error checking login status:", error);
+        }
+      }
+    };
+  
+    checkLoggedIn();
+  }, [navigate]);
 
   const handleRollNoChange = (e) => {
     const inputValue = e.target.value;
