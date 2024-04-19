@@ -6,8 +6,8 @@ dotenv.config({path:'config.env'});
 const { body, validationResult } = require('express-validator');
 var jwt = require('jsonwebtoken')
 
-// const JWT_SECRET = process.env.JWT_SECRET;
-const JWT_SECRET = "GandMara"
+const JWT_SECRET = process.env.JWT_SECRET;
+
 const bcrypt = require('bcryptjs');
 
 //-----------------------------------------------------------------------

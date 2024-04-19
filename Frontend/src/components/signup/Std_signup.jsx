@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useToast } from "../ui/use-toast"
 import { ToastAction } from "../ui/toast"
+const dotenv = require('dotenv');
+dotenv.config({path:'config.env'});
 const StudentForm = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -28,7 +30,7 @@ const StudentForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!rollNoError && !passwordError) {
-      const response = await fetch("http://localhost:7000/api/students/std_signup", {
+      const response = await fetch(`${process.env.PATH}/api/students/std_signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

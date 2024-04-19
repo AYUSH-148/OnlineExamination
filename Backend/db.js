@@ -2,7 +2,7 @@ const mongoose=require('mongoose');
 const connectDB = async()=>{
     try{
         //mongodb connection string "process.env.MONGO_URI"
-        const con = await mongoose.connect("mongodb+srv://ayushpro111:547579@cluster0.yexp9kg.mongodb.net/OnlineExam'",{
+        const con = await mongoose.connect(process.env.MONGO_URI,{
             useNewUrlParser:true,
             useUnifiedTopology:true,
         })

@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import ExamContext from "./examContext";
 import { useDispatch } from "react-redux";
 import { qnsActions } from "../../store/qns";
+const dotenv = require('dotenv');
+dotenv.config({path:'config.env'});
 const ExamState = (props) => {
     const dispatch = useDispatch();
-    const host = "http://localhost:7000";
+    const host = process.env.PATH;
     let [admin,setAdmin] = useState({})
     const qns_initial = [];
 
