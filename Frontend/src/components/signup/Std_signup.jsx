@@ -29,7 +29,7 @@ const StudentForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!rollNoError && !passwordError) {
-      const response = await fetch(`https://onlineexamination.onrender.com/api/students/std_signup`, {
+      const response = await fetch(`http://localhost:7000/api/students/std_signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

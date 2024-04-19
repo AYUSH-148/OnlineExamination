@@ -1,0 +1,19 @@
+.back_img{
+    position: absolute;
+    top: 0;
+    height:100vh;
+    width: 100vw;
+    border: 2px solid black;
+    background: linear-gradient(to right,
+    #d3cce3,
+    #e9e4f0
+    );
+    /* Set background image */
+    background-image: url('https://img.freepik.com/free-vector/hand-drawn-school-supplies-pattern-background_23-2150855728.jpg');
+    /* Specify background image size */
+    background-size: cover;
+    /* Center the background image */
+    background-position: center;
+    /* Fix the background image while scrolling */
+    background-attachment: fixed;   
+}

@@ -1,7 +1,6 @@
 
 import './css/question.css';
-import './css/R_addsub.css';
-
+import './css/back-image.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import React from 'react';
 import  Toaster  from "../src/components/ui/toaster"

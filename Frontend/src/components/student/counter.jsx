@@ -59,7 +59,7 @@ const Counter = (props) => {
   };
   
   return (
-    <div className="  text-xl  border-black border-4 text-center py-1 px-2  rounded  text-black ">
+    <div className=" text-xl text-white   text-center py-1 px-2  rounded   ">
       {time.hours ==='..'?<i className="fa-solid fa-clock " style={style}></i>:
         <div>
           <span id="hours">{time.hours} </span>:

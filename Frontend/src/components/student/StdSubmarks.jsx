@@ -53,7 +53,6 @@ const StdSubmarks= (props) => {
 
     return (
         <div className='w-[70vw]'>
-            <h2 className='ml-[11%] text-sky-600 mt-10 font-semibold text-xl '>Subject Marks</h2>
             {data.length > 0 ? (
                 <Table>
                     <TableCaption>A list of recent marks updates.</TableCaption>

@@ -79,7 +79,8 @@ export default function Std_questions() {
   return (
     <>
       {!submitted && (
-        <><div className='px-10  border-b py-4'>
+        <>
+        <div className='px-10  border-b py-4'>
           <p className='text-lg font-semibold mb-4'> GUIDELINES</p>
           <ul className='list-disc ml-4'>
             <li>
@@ -92,8 +93,9 @@ export default function Std_questions() {
               Click the ' save ' button to save your  answer for each question.
             </li>
           </ul>
-        </div><div>
-            <div className='fixed right-4 bottom-7'><Counter subId={subId} dur={dur} std_id={std_id} /></div>
+        </div>
+        <div>
+            <div className='fixed right-9  top-2 z-[500] '><Counter subId={subId} dur={dur} std_id={std_id} /></div>
 
             {Qns.length > 0 && subId !== null ? (
               Qns.map((qn) => (

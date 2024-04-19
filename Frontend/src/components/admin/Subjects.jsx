@@ -54,7 +54,7 @@ export default function Subjects() {
                         return <SubjectItem key={sub._id} sub={sub} />;
                     })}
                 </div>
-                <div className='pl-10 mt-20 text-2xl font-semibold resp_heading '>Insformation Technology(IT)</div>
+                <div className='pl-10 mt-20 text-2xl font-semibold resp_heading '>Information Technology(IT)</div>
                 <div className='flex flex-wrap gap-x-3 resp_subcontainer' >
                     {subjectList[2].map((sub) => {
                         return <SubjectItem key={sub._id} sub={sub} />;

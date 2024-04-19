@@ -76,15 +76,15 @@ export default function SubjectItem(props) {
                 </div>
                 <div className="border-t border-gray-200 flex">
                     <div className="px-4 py-3 sm:w-1/4">
-                        <dt className="text-sm font-medium text-gray-500">Questions count</dt>
+                        <dt className=" font-medium text-gray-500">Questions count</dt>
                         <dd className="mt-1 text-sm text-gray-900">{sub.length}</dd>
                     </div>
                     <div className="px-4 py-3 sm:w-1/4">
-                        <dt className="text-sm font-medium text-gray-500">Maximum Marks</dt>
+                        <dt className=" font-medium text-gray-500">Maximum Marks</dt>
                         <dd className="mt-1 text-sm text-gray-900">{sub.max_marks}</dd>
                     </div>
                     <div className="px-4 py-3 sm:w-1/4">
-                        <dt className="text-sm font-medium text-gray-500">Subject Code</dt>
+                        <dt className="font-medium text-gray-500">Subject Code</dt>
                         <dd className="mt-1 text-sm text-gray-900">{sub.code}</dd>
                     </div>
                     <div className="px-4 py-3 sm:w-1/4">
@@ -94,8 +94,8 @@ export default function SubjectItem(props) {
                 </div>
                 <div className="border-t border-gray-200">
                     <div className="px-4 py-3 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt className="text-sm font-medium text-gray-500">Guidelines</dt>
-                        <dd className="mt-1 text-sm text-gray-900 sm:col-span-2"><pre>{sub.description ? sub.description : "lorem24k;lj' dslkgkndslgmasg a[kfnaf ag a'akd'g 'dofagm'agm a;gkmaglma a'gka'gmag a'dgl"}</pre></dd>
+                        <dt className=" font-medium text-gray-500">Guidelines</dt>
+                        <dd className="mt-1 text-sm font-serif text-gray-900 sm:col-span-2"><pre>{sub.description ? sub.description : "lorem24k;lj' dslkgkndslgmasg a[kfnaf ag a'akd'g 'dofagm'agm a;gkmaglma a'gka'gmag a'dgl"}</pre></dd>
                     </div>
                 </div>
             </div>

@@ -6,10 +6,8 @@ const PORT = process.env.PORT||8080;
 
 const express = require('express')
 const app = express();
-const corsOptions = {
-    origin: 'https://online-examination-nine.vercel.app',
-};
-app.use(cors(corsOptions))
+
+app.use(cors())
 
 connectToMongo();
 

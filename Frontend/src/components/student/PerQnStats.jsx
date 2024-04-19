@@ -47,7 +47,6 @@ const PerQnStats = (props) => {
 
     return (
         <>
-        <h2 className='ml-[30%] mt-16 text-[25px] text-sky-600'>Questions per subject</h2>
         <div className='ml-16 w-[80vw] flex flex-wrap gap-5  '>
             
             {Object.keys(data).length > 0 && Object.keys(data).map((subjectName, index) => (

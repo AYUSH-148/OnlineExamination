@@ -93,7 +93,7 @@ const Navbar = () => {
 
 
           <DropdownMenu >
-            <DropdownMenuTrigger className="hover:bg-[#333] cursor-pointer hover:text-blue-100 mx-6  mb-1 py-2">Help ( <i className="fa-solid fa-info  "></i> )</DropdownMenuTrigger>
+            <DropdownMenuTrigger className="hover:bg-[#333] cursor-pointer hover:text-blue-100 mx-6  mb-1 ">Help ( <i className="fa-solid fa-info  "></i> )</DropdownMenuTrigger>
             <DropdownMenuContent className="mr-4" >
               {/* <DropdownMenuLabel >"Student section Admin Section"</DropdownMenuLabel> */}
               {showAdminProfile && <DropdownMenuItem className="flex justify-between"><Link to={`/admin_profile`} className='border-b border-gray-200'>Profile</Link> <i className="fa-solid fa-user mr-2"></i>  </DropdownMenuItem>}
@@ -109,9 +109,9 @@ const Navbar = () => {
                 </DialogContent>
               </Dialog>
 
-              {showMarks && <DropdownMenuItem><Link to={`/marks_details`} className='border-b border-gray-200 w-full py-2' >Updated Result </Link> <i className="fa-solid fa-file-pen mr-1"></i></DropdownMenuItem>}
-              {view_Stdstats && <DropdownMenuItem className="flex justify-between items-center mr-2 py-2"><div onClick={handleClick} className='border-b border-gray-200 w-full'>View Stats </div> <i className="fa-solid fa-chart-simple"></i></DropdownMenuItem>}
-              {showStdList && <DropdownMenuItem className="flex justify-between items-center py-2"><Link to="/student_details" className='border-b border-gray-200  w-full'>Students List</Link> <i class="fa-solid fa-list mr-2"></i></DropdownMenuItem>}
+              {showMarks && <DropdownMenuItem><Link to={`/marks_details`} className='border-b border-gray-200 w-full ' >Updated Result </Link> <i className="fa-solid fa-file-pen mr-1"></i></DropdownMenuItem>}
+              {view_Stdstats && <DropdownMenuItem className="flex justify-between items-center mr-2 "><div onClick={handleClick} className='border-b border-gray-200 w-full'>View Stats </div> <i className="fa-solid fa-chart-simple"></i></DropdownMenuItem>}
+              {showStdList && <DropdownMenuItem className="flex justify-between items-center "><Link to="/student_details" className='border-b border-gray-200  w-full'>Students List</Link> <i class="fa-solid fa-list mr-2"></i></DropdownMenuItem>}
             </DropdownMenuContent>
           </DropdownMenu>
           <DropdownMenu >
@@ -122,7 +122,7 @@ const Navbar = () => {
               {showAdminProfile && <DropdownMenuItem > <Link to={`/admin_profile`}>View Profile</Link></DropdownMenuItem>}
               {chPass_forstd && <DropdownMenuItem className="border-b border-gray-200"><Link to="/s_change_password" >Change Password </Link></DropdownMenuItem>}
               {chPass_foradmin && <DropdownMenuItem><Link to={`/change_password`} >Change Password </Link></DropdownMenuItem>}
-              {forgetPass && <DropdownMenuItem ><Link to="/forgot_password">Forgot Password?</Link></DropdownMenuItem>}
+              {forgetPass && <DropdownMenuItem className="border-b border-gray-200"><Link to="/forgot_password">Forgot Password?</Link></DropdownMenuItem>}
               <DropdownMenuItem>{showLogout && <button onClick={handleLogout} className=' py-1 px-2 flex justify-between w-full items-center'><p>Logout</p> <i class="fa-solid fa-right-from-bracket"></i></button>}</DropdownMenuItem>
 
             </DropdownMenuContent>
