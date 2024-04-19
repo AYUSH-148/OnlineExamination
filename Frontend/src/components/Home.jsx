@@ -41,7 +41,7 @@ export default function Home() {
   const [password, setPassword] = useState('');
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`http://localhost:7000/api/admin/admin_login`, {
+    const response = await fetch(`https://onlineexamination.onrender.com/api/admin/admin_login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -130,20 +130,12 @@ export default function Home() {
           </div>
         </div>
         <div className='my-4 mt-10 flex justify-center items-center'>
-          <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mx-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" role="button"><Link to="/student_signup">Join as Student <i className="fa-solid fa-rocket ml-1"></i></Link></button>
+          <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mx-2 transition-all ease-out hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" role="button"><Link to="/student_signup">Join as Student <i className="fa-solid fa-rocket ml-1"></i></Link></button>
           <button className="bg-gray-500 hover:bg-gray-600 mx-2 text-white py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 text-lg"><Link to="/student_login" role="button">Already a member ?</Link></button>
         </div>
 
 
-        {/* <div className="my-4">
-                <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg mx-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    <Link to={`/subjects/${id}`}>Start creating Exam</Link>
-                </button>
-                <button className="bg-gray-500 hover:bg-gray-600 mx-2 text-white py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500">
-                  <Link to="/student_details"> View Participation</Link>  
-                </button>
-                
-            </div> */}
+    
 
       </div>
 
