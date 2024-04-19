@@ -14,6 +14,7 @@ const EditSubject = (props) => {
         sub_name: sub.name,
         description: sub.description,
         length: sub.length,
+        duration:"00:00:00",
         availability: sub.availability,
         max_marks: sub.max_marks
     });
@@ -146,7 +147,7 @@ const EditSubject = (props) => {
                         </label>
                     </div>
                 </div>
-                {/* <div>
+                <div>
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="duration">
                         Duration
                     </label>
@@ -156,13 +157,13 @@ const EditSubject = (props) => {
                         type="text"
                         placeholder="hh:mm:ss"
                         name="duration"
-                        value={`${formData.duration.hours}:${formData.duration.minutes}:${formData.duration.seconds}`}
+                        value={formData.duration}
                         onChange={handleChange}
                         pattern="[0-9]{2}:[0-5][0-9]:[0-5][0-9]"
                         title="Please enter a valid duration in the format hh:mm:ss"
                         required
                     />
-                </div> */}
+                </div>
 
             </div>
 

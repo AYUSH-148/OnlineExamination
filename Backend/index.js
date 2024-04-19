@@ -6,7 +6,10 @@ const PORT = process.env.PORT||8080;
 
 const express = require('express')
 const app = express();
-app.use(cors())
+const corsOptions = {
+    origin: 'https://online-examination-nine.vercel.app',
+};
+app.use(cors(corsOptions))
 
 connectToMongo();
 
@@ -21,5 +24,5 @@ app.use('/api/marks',require('./routes/marks'));
 app.use('/api/marksPerQn',require('./routes/marksPerQn'));
 
 app.listen(PORT, () => {
-    console.log(`Example app listening at http://localhost:${PORT}`)
+    console.log(`Example app listening at https://onlineexamination.onrender.com`)
 })

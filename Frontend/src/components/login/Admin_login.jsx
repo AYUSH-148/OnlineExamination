@@ -13,7 +13,7 @@ export default function Admin_login() {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:7000/api/admin/admin_login", {
+    const response = await fetch("https://onlineexamination.onrender.com/api/admin/admin_login", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

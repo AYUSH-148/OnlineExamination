@@ -16,7 +16,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog"
 const Navbar = () => {
-  
+
   const navigate = useNavigate();
   const location = useLocation();
   const { pathname } = location;
@@ -41,7 +41,7 @@ const Navbar = () => {
   if (pathname.includes('/std_questions/') || pathname.startsWith('/student_details')) {
     showStdList = false;
   }
-  if (pathname.startsWith("/subjects/") || pathname.startsWith("/admin_profile") || pathname.startsWith("/student_details") || pathname.startsWith('/questions') || pathname.startsWith('/admin_home') ) {
+  if (pathname.startsWith("/subjects/") || pathname.startsWith("/admin_profile") || pathname.startsWith("/student_details") || pathname.startsWith('/questions') || pathname.startsWith('/admin_home')) {
     showMarks = true;
     chPass_foradmin = true;
   }
@@ -65,7 +65,7 @@ const Navbar = () => {
 
 
 
-  if (!localStorage.getItem('token') || pathname.startsWith('/student_details')||pathname.startsWith('/std_questions')||pathname.startsWith('/student_login')||pathname.startsWith('/student_signup')) {
+  if (!localStorage.getItem('token') || pathname.startsWith('/student_details') || pathname.startsWith('/std_questions') || pathname.startsWith('/student_login') || pathname.startsWith('/student_signup')) {
     showNavComp = false;
   }
   const handleLogout = () => {
@@ -78,61 +78,63 @@ const Navbar = () => {
       section.scrollIntoView({ behavior: 'smooth' });
     }
   }
-  const handleBurger = ()=>{
+  const handleBurger = () => {
     setIsMenuOpen(!isMenuOpen);
   }
   return (
     <>
-   <nav className={`mb-5 z-50 bg-gray-900 flex px-5 py-4 text-white sticky top-0 ${isMenuOpen ? 'flex-col ok justify-around transition-all duration-500' : 'items-center justify-between'}`}>
+      <nav className={`mb-5 z-50 bg-gray-700 flex px-5 py-4 text-white sticky top-0 ${isMenuOpen ? 'flex-col ok justify-around transition-all duration-500' : 'items-center justify-between'}`}>
 
 
-      <div className="navbar-header">
-        <h1 className='text-xl mb-3'>OnlineExamination System</h1>
-      </div>
-      {showNavComp && <div className={`flex  ${isMenuOpen ? 'flex-col items-start gap-y-4 visible' : ' justify-center items-center  mr-16 navcomp '} `}>
+        <div className="navbar-header">
+          <h1 className='text-xl mb-1'>OnlineExamination System</h1>
+        </div>
+        {showNavComp && <div className={`flex  ${isMenuOpen ? 'flex-col items-start gap-y-4 visible' : ' justify-center items-center  mr-16 navcomp '} `}>
 
 
-        <DropdownMenu >
-          <DropdownMenuTrigger className="hover:bg-[#333] cursor-pointer hover:text-blue-100 mx-6  mb-1">Help ( <i className="fa-solid fa-info  "></i> )</DropdownMenuTrigger>
-          <DropdownMenuContent className="mr-4" >
-            {/* <DropdownMenuLabel >"Student section Admin Section"</DropdownMenuLabel> */}
-            {showAdminProfile && <DropdownMenuItem className="flex justify-between"><Link to={`/admin_profile`} className='border-b border-gray-200'>Profile</Link> <i className="fa-solid fa-user mr-2"></i>  </DropdownMenuItem>}
-            <DropdownMenuItem >
-            {showStd_profile &&
+          <DropdownMenu >
+            <DropdownMenuTrigger className="hover:bg-[#333] cursor-pointer hover:text-blue-100 mx-6  mb-1 py-2">Help ( <i className="fa-solid fa-info  "></i> )</DropdownMenuTrigger>
+            <DropdownMenuContent className="mr-4" >
+              {/* <DropdownMenuLabel >"Student section Admin Section"</DropdownMenuLabel> */}
+              {showAdminProfile && <DropdownMenuItem className="flex justify-between"><Link to={`/admin_profile`} className='border-b border-gray-200'>Profile</Link> <i className="fa-solid fa-user mr-2"></i>  </DropdownMenuItem>}
               <Dialog>
-                <DialogTrigger className='flex justify-between w-full  items-center' ><div className='my-2  border-b  border-gray-200 '>Profile </div> <i className="fa-solid fa-user mr-2"></i>  </DialogTrigger>
+                <DropdownMenuItem >
+                  {showStd_profile &&
+                    <DialogTrigger className='flex justify-between w-full  items-center' ><div className='my-2  border-b  border-gray-200 '>Profile </div> <i className="fa-solid fa-user mr-2"></i>  </DialogTrigger>
+                  }
+
+                </DropdownMenuItem>
                 <DialogContent>
                   <View_stdProfile />
                 </DialogContent>
               </Dialog>
-            }
-            </DropdownMenuItem>
-           
-            {showMarks && <DropdownMenuItem><Link to={`/marks_details`} className='border-b border-gray-200 w-full' >Updated Result </Link> <i className="fa-solid fa-file-pen mr-1"></i></DropdownMenuItem>}
-            {view_Stdstats && <DropdownMenuItem className="flex justify-between items-center mr-2"><div onClick={handleClick} className='border-b border-gray-200 w-full'>View Stats </div> <i className="fa-solid fa-chart-simple"></i></DropdownMenuItem>}
-            {showStdList && <DropdownMenuItem className="flex justify-between items-center"><Link to="/student_details" className='border-b border-gray-200  w-full'>Students List</Link> <i class="fa-solid fa-list mr-2"></i></DropdownMenuItem>}
-            <DropdownMenuItem>{showLogout && <button onClick={handleLogout} className=' py-1 px-2 flex justify-between w-full items-center'><p>Logout</p> <i class="fa-solid fa-right-from-bracket"></i></button>}</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <DropdownMenu >
-          <DropdownMenuTrigger className="hover:bg-[#333] cursor-pointer hover:text-blue-100 mx-5 mb-1"><i className="fa-solid fa-user text-lg cursor-pointer text-[#f0f2f4] " ></i></DropdownMenuTrigger>
-          <DropdownMenuContent >
-            <DropdownMenuLabel >User </DropdownMenuLabel>
-            <DropdownMenuSeparator className="bg-black" />
-            {showAdminProfile && <DropdownMenuItem > <Link to={`/admin_profile`}>View Profile</Link></DropdownMenuItem>}
-            {chPass_forstd && <DropdownMenuItem className="border-b text-gray-200"><Link to="/s_change_password" >Change Password </Link></DropdownMenuItem>}
-            {chPass_foradmin && <DropdownMenuItem><Link to={`/change_password`} >Change Password </Link></DropdownMenuItem>}
-            {forgetPass && <DropdownMenuItem ><Link to="/forgot_password">Forgot Password?</Link></DropdownMenuItem>}
-          </DropdownMenuContent>
-        </DropdownMenu>
-       
 
-      </div>}
-      <i className="fa-solid fa-bars text-xl hidden absolute top-4 right-5" onClick={handleBurger}></i>
-    </nav>
-    
-    <style jsx>
-      {`
+              {showMarks && <DropdownMenuItem><Link to={`/marks_details`} className='border-b border-gray-200 w-full py-2' >Updated Result </Link> <i className="fa-solid fa-file-pen mr-1"></i></DropdownMenuItem>}
+              {view_Stdstats && <DropdownMenuItem className="flex justify-between items-center mr-2 py-2"><div onClick={handleClick} className='border-b border-gray-200 w-full'>View Stats </div> <i className="fa-solid fa-chart-simple"></i></DropdownMenuItem>}
+              {showStdList && <DropdownMenuItem className="flex justify-between items-center py-2"><Link to="/student_details" className='border-b border-gray-200  w-full'>Students List</Link> <i class="fa-solid fa-list mr-2"></i></DropdownMenuItem>}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <DropdownMenu >
+            <DropdownMenuTrigger className="hover:bg-[#333] cursor-pointer hover:text-blue-100 mx-5 mb-1"><i className="fa-solid fa-user text-lg cursor-pointer text-[#f0f2f4] " ></i></DropdownMenuTrigger>
+            <DropdownMenuContent >
+              <DropdownMenuLabel >User </DropdownMenuLabel>
+              <DropdownMenuSeparator className="bg-black" />
+              {showAdminProfile && <DropdownMenuItem > <Link to={`/admin_profile`}>View Profile</Link></DropdownMenuItem>}
+              {chPass_forstd && <DropdownMenuItem className="border-b border-gray-200"><Link to="/s_change_password" >Change Password </Link></DropdownMenuItem>}
+              {chPass_foradmin && <DropdownMenuItem><Link to={`/change_password`} >Change Password </Link></DropdownMenuItem>}
+              {forgetPass && <DropdownMenuItem ><Link to="/forgot_password">Forgot Password?</Link></DropdownMenuItem>}
+              <DropdownMenuItem>{showLogout && <button onClick={handleLogout} className=' py-1 px-2 flex justify-between w-full items-center'><p>Logout</p> <i class="fa-solid fa-right-from-bracket"></i></button>}</DropdownMenuItem>
+
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+
+        </div>}
+        <i className="fa-solid fa-bars text-xl hidden absolute top-4 right-5" onClick={handleBurger}></i>
+      </nav>
+
+      <style jsx>
+        {`
       
             @media (max-width: 1030px){
                 .hidden{
@@ -152,8 +154,8 @@ const Navbar = () => {
                }
             }
       `}
-          
-    </style>
+
+      </style>
     </>
   );
 };

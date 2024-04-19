@@ -15,7 +15,7 @@ export default function Std_login() {
     const checkLoggedIn = async () => {
       if (localStorage.getItem('token')) {
         try {
-          const response = await fetch(`http://localhost:7000/api/students/check-login`, {
+          const response = await fetch(`https://onlineexamination.onrender.com/api/students/check-login`, {
             method: 'GET',
             headers: {
               'auth_token': localStorage.getItem('token'),
@@ -52,7 +52,7 @@ export default function Std_login() {
     e.preventDefault();
     if (!rollNoError && !passwordError) {
 
-      const response = await fetch(`http://localhost:7000/api/students/std_login`, {
+      const response = await fetch(`https://onlineexamination.onrender.com/api/students/std_login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
