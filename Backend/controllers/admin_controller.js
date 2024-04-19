@@ -175,3 +175,22 @@ exports.change_password=(async(req,res)=>{
     }
 })
 
+exports.check_login= (async (req, res) => {
+    
+    const id = req.admin.id;
+    try {
+        const admin= await admin_db.findById(id).select("-password");
+        if(admin){
+            return res.json({ success:true,admin});
+        }
+        else{
+            return res.json({success: false});
+        }
+    } catch (error) {
+            return res.status(400).json({ success:false,error: "User is not logged in" }); 
+    }
+   
+    
+})
+
+

@@ -57,8 +57,8 @@ const View_AdminProfile = () => {
     <div className='mt-16  '>
       <Tabs defaultValue="account" className="w-[30vw] rounded-sm mx-auto ">
         <TabsList className="bg-white mt-1 mb-6 flex space-x-4">
-          <TabsTrigger className=" text-black text-lg border border-slate-400 px-4 py-2 rounded-md w-1/3" value="account">Profile</TabsTrigger>
-          <TabsTrigger className=" text-black text-lg border border-slate-400 px-4 py-2 rounded-md w-1/3" value="password" onClick={() => handleEdit(admin[0]._id, admin[0].name, admin[0].email, admin[0].phoneNo, admin[0].profession)}>Edit Profile</TabsTrigger>
+          <TabsTrigger className=" text-black text-lg border border-slate-300 px-4 py-2 rounded-md w-1/3" value="account">Profile</TabsTrigger>
+          <TabsTrigger className=" text-black text-lg border border-slate-300 px-4 py-2 rounded-md w-1/3" value="password" onClick={() => handleEdit(admin[0]._id, admin[0].name, admin[0].email, admin[0].phoneNo, admin[0].profession)}>Edit Profile</TabsTrigger>
         </TabsList>
         <TabsContent value="account" >
           <div className="max-w-md mx-auto  rounded-md p-5 bg-white h-[50vh] shadow-lg">
@@ -73,21 +73,21 @@ const View_AdminProfile = () => {
               <div className="mb-4 flex justify-between">
                 <div>
                   <strong>Email :</strong><br />
-                  <div className="bg-slate-100 rounded p-2 my-2 w-[180px]">{admin[0].email}</div>
+                  <div className="bg-slate-100 rounded p-2 my-2 w-[180px] border-2 border-gray-300">{admin[0].email}</div>
                 </div>
                 <div>
                   <strong>Profession :</strong><br />
-                  <div className="bg-slate-100 rounded p-2 my-2 w-[180px]">{admin[0].profession}</div>
+                  <div className="bg-slate-100 rounded p-2 my-2 w-[180px] border-2 border-gray-300">{admin[0].profession}</div>
                 </div>
               </div>
               <div className="mb-3 flex justify-between">
                 <div>
                   <strong>Contact No :</strong><br />
-                  <div className="bg-slate-100 rounded p-2 my-2  w-[180px]">{admin[0].phoneNo}</div>
+                  <div className="bg-slate-100 rounded p-2 my-2  w-[180px] border-2 border-gray-300">{admin[0].phoneNo}</div>
                 </div>
                 <div>
                   <strong>Role :</strong><br />
-                  <div className="bg-slate-100 rounded p-2 my-2 w-[180px]">{admin[0].role}</div>
+                  <div className="bg-slate-100 rounded p-2 my-2 w-[180px] border-2 border-gray-300">{admin[0].role}</div>
                 </div>
               </div>
             </div> : <Loader />}
@@ -132,7 +132,7 @@ const View_AdminProfile = () => {
                 onChange={(e) => setPhoneNo(e.target.value)}
               />
             </div>
-            <button className='bg-slate-400 w-full mx-0 text-black font-bold hover:bg-slate-500 py-2 rounded-md' onClick={handleChanges}>SAVE CHANGES</button>
+            <button className='bg-slate-300 w-full mx-0 text-black font-bold hover:bg-slate-500 py-2 rounded-md' onClick={handleChanges}>SAVE CHANGES</button>
           </div>
         </TabsContent>
       </Tabs>

@@ -8,14 +8,10 @@ const EditSubject = (props) => {
     const context = useContext(ExamContext);
     const { edit_subject } = context;
     const { sub } = props;
+    
     const [formData, setFormData] = useState({
         code: sub.code,
         sub_name: sub.name,
-        duration: {
-            hours: sub.duration.hours,
-            minutes: sub.duration.minutes,
-            seconds: sub.duration.seconds
-        },
         description: sub.description,
         length: sub.length,
         availability: sub.availability,
@@ -33,7 +29,12 @@ const EditSubject = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { code, sub_name, duration, description, max_marks, length, availability } = formData;
-        await edit_subject(sub._id, code, sub_name, duration, description, max_marks, length, availability);
+        const fixDuration = (duration) => {
+            const [hours, minutes, seconds] = duration.split(':');
+            return { hours, minutes, seconds };
+        };
+        const dur = fixDuration(duration);
+        await edit_subject(sub._id, code, sub_name, dur, description, max_marks, length, availability);
         toast({
             title: "Subject updated!",
             description: "Changes saved successfully.",
@@ -103,6 +104,7 @@ const EditSubject = (props) => {
                     />
                 </div>
             </div>
+
             <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
                     Description
@@ -116,33 +118,54 @@ const EditSubject = (props) => {
                     onChange={handleChange}
                 ></textarea>
             </div>
-            <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="availability">
-                    Availability
-                </label>
-                <div className="flex">
-                    <label className="mr-4">
-                        <input
-                            type="radio"
-                            name="availability"
-                            value="Active"
-                            checked={formData.availability === 'Active'}
-                            onChange={handleChange}
-                        />
-                        <span className="ml-2">Active</span>
+            <div className="grid grid-cols-2 gap-4 mb-4">
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="availability">
+                        Availability
                     </label>
-                    <label>
-                        <input
-                            type="radio"
-                            name="availability"
-                            value="Expired"
-                            checked={formData.availability === 'Expired'}
-                            onChange={handleChange}
-                        />
-                        <span className="ml-2">Expired</span>
-                    </label>
+                    <div className="flex">
+                        <label className="mr-4">
+                            <input
+                                type="radio"
+                                name="availability"
+                                value="Active"
+                                checked={formData.availability === 'Active'}
+                                onChange={handleChange}
+                            />
+                            <span className="ml-2">Active</span>
+                        </label>
+                        <label>
+                            <input
+                                type="radio"
+                                name="availability"
+                                value="Expired"
+                                checked={formData.availability === 'Expired'}
+                                onChange={handleChange}
+                            />
+                            <span className="ml-2">Expired</span>
+                        </label>
+                    </div>
                 </div>
+                {/* <div>
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="duration">
+                        Duration
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="duration"
+                        type="text"
+                        placeholder="hh:mm:ss"
+                        name="duration"
+                        value={`${formData.duration.hours}:${formData.duration.minutes}:${formData.duration.seconds}`}
+                        onChange={handleChange}
+                        pattern="[0-9]{2}:[0-5][0-9]:[0-5][0-9]"
+                        title="Please enter a valid duration in the format hh:mm:ss"
+                        required
+                    />
+                </div> */}
+
             </div>
+
             <button type='submit' className='mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>
                 Save Changes
             </button>
