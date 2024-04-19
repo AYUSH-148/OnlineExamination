@@ -5,7 +5,7 @@ import { qnsActions } from "../../store/qns";
 
 const ExamState = (props) => {
     const dispatch = useDispatch();
-    const host = " http://localhost:7000";
+    const host = " https://onlineexamination.onrender.com";
     let [admin,setAdmin] = useState({})
     const qns_initial = [];
 
