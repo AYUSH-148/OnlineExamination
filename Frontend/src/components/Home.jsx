@@ -16,7 +16,7 @@ export default function Home() {
     const checkLoggedIn = async () => {
       if (localStorage.getItem('token')) {
         try {
-          const response = await fetch(`http://localhost:7000/api/admin/check-login`, {
+          const response = await fetch(`https://onlineexamination.onrender.com/api/admin/check-login`, {
             method: 'GET',
             headers: {
               'auth_token': localStorage.getItem('token'),
