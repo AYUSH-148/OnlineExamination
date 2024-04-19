@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useToast } from "./ui/use-toast"
 import { ToastAction } from "./ui/toast"
-const dotenv = require('dotenv');
-dotenv.config({path:'config.env'});
+
 import {
   Dialog,
   DialogContent,
@@ -17,7 +16,7 @@ export default function Home() {
     const checkLoggedIn = async () => {
       if (localStorage.getItem('token')) {
         try {
-          const response = await fetch(`${process.env.PATH}/api/admin/check-login`, {
+          const response = await fetch(`http://localhost:7000/api/admin/check-login`, {
             method: 'GET',
             headers: {
               'auth_token': localStorage.getItem('token'),
@@ -42,7 +41,7 @@ export default function Home() {
   const [password, setPassword] = useState('');
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${process.env.PATH}/api/admin/admin_login`, {
+    const response = await fetch(`http://localhost:7000/api/admin/admin_login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useToast } from "../ui/use-toast"
 import { ToastAction } from "../ui/toast"
-const dotenv = require('dotenv');
-dotenv.config({path:'config.env'});
+
 export default function Std_login() {
   const [rollNo, setRollNo] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +15,7 @@ export default function Std_login() {
     const checkLoggedIn = async () => {
       if (localStorage.getItem('token')) {
         try {
-          const response = await fetch(`${process.env.PATH}/api/students/check-login`, {
+          const response = await fetch(`http://localhost:7000/api/students/check-login`, {
             method: 'GET',
             headers: {
               'auth_token': localStorage.getItem('token'),
@@ -53,7 +52,7 @@ export default function Std_login() {
     e.preventDefault();
     if (!rollNoError && !passwordError) {
 
-      const response = await fetch(`${process.env.PATH}/api/students/std_login`, {
+      const response = await fetch(`http://localhost:7000/api/students/std_login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
