@@ -15,6 +15,7 @@ import {
   DialogContent,
   DialogTrigger,
 } from "../ui/dialog"
+import {ReactComponent as Icon} from './logo.svg'
 const Navbar = () => {
 
   const navigate = useNavigate();
@@ -86,8 +87,9 @@ const Navbar = () => {
       <nav className={`mb-5 z-50 bg-gray-700 flex px-5 py-4 text-white sticky top-0 ${isMenuOpen ? 'flex-col ok justify-around transition-all duration-500' : 'items-center justify-between'}`}>
 
 
-        <div className="navbar-header">
-          <h1 className='text-xl mb-1'>OnlineExamination System</h1>
+        <div className="navbar-header flex items-center">
+          <h1 className='text-xl mb-0 playfair-display-sc-black tracking-wide'>EXAMIFY</h1>
+          <Icon className='w-8 h-8 ml-2' />
         </div>
         {showNavComp && <div className={`flex  ${isMenuOpen ? 'flex-col items-start gap-y-4 visible' : ' justify-center items-center  mr-16 navcomp '} `}>
 

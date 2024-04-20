@@ -123,7 +123,7 @@ export default function Home() {
 
         <div className=''>
           <div>
-            <h1 className='ml-[28%] font-bold text-[80px] mt-[12%] text-gray-700'>Welcome to Our Site!</h1>
+            <h1 className='ml-[28%] font-bold text-[80px] mt-[12%] text-gray-700'>Welcome to <span className='playfair-display-sc-black text-orange-500'>Examify</span></h1>
             <div className='ml-[34%] font-bold text-[25px] mt-3 text-center w-1/3'>
               Join to become a member of  <span className='text-gray-700'>Digital examination platform</span>
             </div>
